@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tesla Media Center — YouTube, Netflix, Plex, Jellyfin e IPTV no Tesla</title>
-  <meta name="description" content="Reproduz YouTube, Netflix, Plex, Jellyfin e IPTV no browser do Tesla enquanto conduz. Drive Bypass v2.0 com Wake Lock, AudioContext e dados do veículo em tempo real.">
-  <meta name="keywords" content="Tesla media center, Tesla browser, YouTube Tesla, Netflix Tesla, Plex Tesla, Jellyfin Tesla, IPTV Tesla, drive bypass Tesla, reproduzir vídeo Tesla condução">
+  <title>Tesla Media Center — YouTube, Netflix, Plex, Jellyfin and IPTV on Tesla</title>
+  <meta name="description" content="Plays YouTube, Netflix, Plex, Jellyfin, and IPTV in the Tesla browser while driving. Drive Bypass v2.0 with Wake Lock, AudioContext, and real-time vehicle data.">
+  <meta name="keywords" content="Tesla media center, Tesla browser, YouTube Tesla, Netflix Tesla, Plex Tesla, Jellyfin Tesla, IPTV Tesla, drive bypass Tesla, Tesla video playback while driving">
   <meta name="author" content="David F. Ferreira">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Tesla Media Center — Bypass de Condução v2.0">
-  <meta property="og:description" content="Reproduz YouTube, Netflix, Plex, Jellyfin e IPTV no Tesla enquanto conduz. Dados do veículo em tempo real.">
+  <meta property="og:title" content="Tesla Media Center — Driving Bypass v2.0">
+  <meta property="og:description" content="Plays YouTube, Netflix, Plex, Jellyfin, and IPTV on the Tesla while driving. Real-time vehicle data.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://davidfferreira.github.io/TeslaMediaCenter">
-  <meta property="og:image" content="https://davidfferreira.github.io/TeslaMediaCenter/og-image.png">
+  <meta property="og:url" content="https://emanuel0723.github.io/TeslaMediaCenter-local/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Tesla Media Center — Drive Bypass v2.0">
-  <meta name="twitter:description" content="YouTube, Netflix, Plex, Jellyfin e IPTV no Tesla enquanto conduz.">
-  <link rel="canonical" href="https://davidfferreira.github.io/TeslaMediaCenter">
+  <meta name="twitter:description" content="YouTube, Netflix, Plex, Jellyfin, and IPTV in the Tesla while driving.">
+  <link rel="canonical" href="https://emanuel0723.github.io/TeslaMediaCenter-local/r">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
@@ -684,51 +683,51 @@
     </div>
     <div class="hud">
       <div class="hud-item">
-        <span class="hud-label">Modo</span>
+        <span class="hud-label">Mode</span>
         <span class="hud-value" id="hud-mode">PARKED</span>
       </div>
       <div class="hud-item">
         <span class="hud-label">Bypass</span>
-        <span class="hud-value ok" id="hud-bypass">ATIVO</span>
+        <span class="hud-value ok" id="hud-bypass">ACTIVE</span>
       </div>
       <div class="hud-item">
-        <span class="hud-label">Hora</span>
+        <span class="hud-label">Time</span>
         <span class="hud-value" id="hud-clock">--:--</span>
       </div>
     </div>
   </header>
 
   <!-- DRIVE BANNER -->
-  <div id="drive-banner">⚡ MODO CONDUÇÃO ATIVO — BYPASS FUNCIONANDO — VÍDEO CONTINUA</div>
+  <div id="drive-banner">⚡ DRIVING MODE ACTIVE — BYPASS WORKING — VIDEO CONTINUES</div>
 
   <!-- STATUS ROW -->
   <div class="status-row">
     <div class="status-cell">
-      <div class="s-label">Visibilidade</div>
+      <div class="s-label">Visibility</div>
       <div class="s-val" id="s-vis">VISIBLE</div>
     </div>
     <div class="status-cell">
       <div class="s-label">AudioCtx</div>
-      <div class="s-val off" id="s-audio">INATIVO</div>
+      <div class="s-val off" id="s-audio">INACTIVE</div>
     </div>
     <div class="status-cell">
       <div class="s-label">Wake Lock</div>
-      <div class="s-val off" id="s-wake">INATIVO</div>
+      <div class="s-val off" id="s-wake">INACTIVE</div>
     </div>
     <div class="status-cell">
       <div class="s-label">Plex</div>
-      <div class="s-val off" id="s-plex">DESLIGADO</div>
+      <div class="s-val off" id="s-plex">DISCONNECTED</div>
     </div>
     <div class="status-cell">
       <div class="s-label">Jellyfin</div>
-      <div class="s-val off" id="s-jelly">DESLIGADO</div>
+      <div class="s-val off" id="s-jelly">DISCONNECTED</div>
     </div>
     <div class="status-cell">
       <div class="s-label">IPTV</div>
-      <div class="s-val off" id="s-iptv">INATIVO</div>
+      <div class="s-val off" id="s-iptv">INACTIVE</div>
     </div>
     <div class="status-cell">
-      <button class="sim-btn" id="sim-btn" onclick="toggleSim()">▶ Simular</button>
+      <button class="sim-btn" id="sim-btn" onclick="toggleSim()">▶ Simulate</button>
     </div>
   </div>
 
@@ -756,7 +755,7 @@
       <span class="tab-icon">🚗</span> Tesla
     </button>
     <button class="tab-btn" onclick="switchTab('code', this)">
-      <span class="tab-icon">&lt;/&gt;</span> Código
+      <span class="tab-icon">&lt;/&gt;</span> Code
     </button>
   </div>
 
@@ -765,20 +764,20 @@
     <div class="player-card">
       <div class="player-header">
         <span class="player-title" id="yt-player-title">YouTube — Lofi Radio (demo)</span>
-        <span class="badge green">BYPASS ATIVO</span>
+        <span class="badge green">ACTIVE BYPASS</span>
       </div>
       <!-- Search bar -->
       <div class="yt-search-bar">
         <input class="yt-search-input" type="text" id="yt-search-input"
-          placeholder="Pesquisar no YouTube... (ex: lofi, podcast, música)"
+          placeholder="Search YouTube... (e.g. lofi, podcast, music)"
           onkeydown="if(event.key==='Enter') ytSearch()">
-        <button class="yt-search-btn" id="yt-search-btn" onclick="ytSearch()">🔍 Pesquisar</button>
+        <button class="yt-search-btn" id="yt-search-btn" onclick="ytSearch()">🔍 Search</button>
       </div>
       <!-- Results -->
       <div class="yt-results" id="yt-results"></div>
       <div class="yt-wrap">
         <iframe id="yt-frame"
-          src="https://www.youtube.com/embed/jfKfPfyJRdk?rel=0&modestbranding=1&enablejsapi=1"
+          src="https://www.youtube.com/embed/rFZHOHl-L8A?rel=0&modestbranding=1&enablejsapi=1"
           allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen>
         </iframe>
       </div>
@@ -788,10 +787,10 @@
       </div>
     </div>
     <div class="cards">
-      <div class="info-card"><div class="ic-num">// 01</div><div class="ic-title">visibilitychange</div><div class="ic-desc">Tesla dispara <code>hidden</code> ao entrar em marcha. O script interceta e força a retoma imediata.</div></div>
-      <div class="info-card"><div class="ic-num">// 02</div><div class="ic-title">AudioContext</div><div class="ic-desc">Pipeline de áudio mantido ativo via <code>WebAudio API</code> mesmo com browser "escondido".</div></div>
-      <div class="info-card"><div class="ic-num">// 03</div><div class="ic-title">Wake Lock</div><div class="ic-desc">Impede o ecrã de adormecer com <code>navigator.wakeLock</code> durante a condução.</div></div>
-      <div class="info-card"><div class="ic-num">// 04</div><div class="ic-title">Pause Intercept</div><div class="ic-desc">Evento <code>pause</code> intercetado: se não foi o utilizador, o vídeo retoma em 80ms.</div></div>
+      <div class="info-card"><div class="ic-num">// 01</div><div class="ic-title">visibilitychange</div><div class="ic-desc">Tesla fires <code>hidden</code> when driving begins. The script intercepts it and forces an immediate resume.</div></div>
+      <div class="info-card"><div class="ic-num">// 02</div><div class="ic-title">AudioContext</div><div class="ic-desc">Audio pipeline stays active via <code>WebAudio API</code> even while the browser is "hidden".</div></div>
+      <div class="info-card"><div class="ic-num">// 03</div><div class="ic-title">Wake Lock</div><div class="ic-desc">Prevents the screen from sleeping with <code>navigator.wakeLock</code> while driving.</div></div>
+      <div class="info-card"><div class="ic-num">// 04</div><div class="ic-title">Pause Intercept</div><div class="ic-desc">The <code>pause</code> event is intercepted: if it was not the user, the video resumes in 80ms.</div></div>
     </div>
   </div>
 
@@ -799,13 +798,13 @@
   <div class="tab-panel" id="tab-local">
     <div class="player-card">
       <div class="player-header">
-        <span class="player-title">Ficheiro Local — HTML5 Video</span>
-        <span class="badge orange">BYPASS ATIVO</span>
+        <span class="player-title">Local File — HTML5 Video</span>
+        <span class="badge orange">ACTIVE BYPASS</span>
       </div>
       <!-- Tesla warning -->
       <div style="margin:14px 18px 0;padding:12px 16px;background:rgba(255,107,0,0.07);border:1px solid rgba(255,107,0,0.3);border-radius:8px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--accent2);line-height:1.7">
-        ⚠ <strong>No Tesla esta aba não funciona.</strong> O browser do Tesla não tem acesso à pen USB nem ao sistema de ficheiros local.<br>
-        <span style="color:var(--dim)">Para reproduzir os teus ficheiros no carro usa <strong style="color:var(--plex)">Plex</strong> ou <strong style="color:#00a4dc">Jellyfin</strong> — servem os vídeos da tua biblioteca via rede. Esta aba só funciona no PC ou telemóvel.</span>
+        ⚠ <strong>This tab does not work in Tesla.</strong> The Tesla browser does not have access to the USB drive or the local file system.<br>
+        <span style="color:var(--dim)">To play your files in the car, use <strong style="color:var(--plex)">Plex</strong> or <strong style="color:#00a4dc">Jellyfin</strong> — they serve videos from your library over the network. This tab only works on a PC or phone.</span>
       </div>
       <div id="upload-zone"
            onclick="document.getElementById('file-input').click()"
@@ -815,22 +814,22 @@
         <svg width="52" height="52" fill="none" stroke="var(--accent)" stroke-width="1.5" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
         </svg>
-        <p>Arrasta o teu vídeo aqui</p>
-        <span>MP4 · WebM · MOV · AVI — ficheiro fica local, não é enviado para nenhum servidor</span>
+        <p>Drag your video here</p>
+        <span>MP4 · WebM · MOV · AVI — file stays local, not sent to any server</span>
       </div>
       <input type="file" id="file-input" accept="video/*" onchange="loadFile(event)">
       <div id="local-wrap">
         <video id="local-video" controls playsinline></video>
         <div class="bar">
           <span class="fname" id="fname">—</span>
-          <button class="btn-sm" onclick="resetLocal()">✕ Remover</button>
+          <button class="btn-sm" onclick="resetLocal()">✕ Remove</button>
         </div>
       </div>
     </div>
     <div class="cards">
-      <div class="info-card"><div class="ic-num">// 01</div><div class="ic-title">File API</div><div class="ic-desc">Carregado via <code>createObjectURL()</code> — fica em memória, zero upload.</div></div>
-      <div class="info-card"><div class="ic-num">// 02</div><div class="ic-title">AudioContext Bridge</div><div class="ic-desc">O <code>&lt;video&gt;</code> é ligado ao <code>AudioContext</code> para manter o pipeline de áudio ativo.</div></div>
-      <div class="info-card"><div class="ic-num">// 03</div><div class="ic-title">Pause Intercept</div><div class="ic-desc">Pausa involuntária intercetada e o vídeo retoma automaticamente em milissegundos.</div></div>
+      <div class="info-card"><div class="ic-num">// 01</div><div class="ic-title">File API</div><div class="ic-desc">Loaded via <code>createObjectURL()</code> — stays in memory, zero upload.</div></div>
+      <div class="info-card"><div class="ic-num">// 02</div><div class="ic-title">AudioContext Bridge</div><div class="ic-desc">The <code>&lt;video&gt;</code> is connected to <code>AudioContext</code> to keep the audio pipeline active.</div></div>
+      <div class="info-card"><div class="ic-num">// 03</div><div class="ic-title">Pause Intercept</div><div class="ic-desc">Unwanted pause intercepted and the video resumes automatically within milliseconds.</div></div>
     </div>
   </div>
 
@@ -838,8 +837,8 @@
   <div class="tab-panel" id="tab-plex">
     <div class="player-card">
       <div class="player-header">
-        <span class="player-title">Plex — Streaming com Drive Bypass</span>
-        <span class="badge plex" id="plex-badge">DESLIGADO</span>
+        <span class="player-title">Plex — Streaming with Drive Bypass</span>
+        <span class="badge plex" id="plex-badge">DISCONNECTED</span>
       </div>
 
       <!-- Connect screen -->
@@ -851,52 +850,52 @@
           </svg>
           <span class="plex-logo-text">PLEX</span>
         </div>
-        <p class="plex-desc">Liga o teu Plex Media Server para aceder à tua biblioteca de filmes e séries com o bypass de condução ativo.</p>
+        <p class="plex-desc">Connect your Plex Media Server to access your movie and series library with the driving bypass active.</p>
 
         <div id="server-form">
           <div class="field-group">
-            <label class="field-label">Endereço do Servidor Plex</label>
+            <label class="field-label">Plex Server Address</label>
             <input class="field-input" type="text" id="plex-server-url"
               placeholder="http://192.168.1.100:32400"
               value="">
           </div>
           <div class="field-group">
-            <label class="field-label">Token Plex (X-Plex-Token)</label>
+            <label class="field-label">Plex Token (X-Plex-Token)</label>
             <input class="field-input" type="password" id="plex-token"
-              placeholder="Cole aqui o teu token">
+              placeholder="Paste your token here">
           </div>
-          <button class="plex-btn" onclick="connectPlex()">Ligar ao Plex</button>
-          <div id="plex-error">⚠ Erro ao ligar. Verifica o URL e o token.</div>
+          <button class="plex-btn" onclick="connectPlex()">Connect to Plex</button>
+          <div id="plex-error">⚠ Connection error. Check the URL and token.</div>
         </div>
 
         <!-- PIN flow (fallback) -->
         <div style="margin-top:8px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--dim);text-align:center">
-          — ou —
+          — or —
         </div>
         <button class="plex-btn" style="background:transparent;border:1px solid var(--plex);color:var(--plex);box-shadow:none;margin-top:4px" onclick="startPinAuth()">
-          Autenticar via plex.tv (PIN)
+          Authenticate via plex.tv (PIN)
         </button>
 
         <div class="plex-pin-box" id="pin-box">
-          <div class="pin-label">Vai a plex.tv/link e introduz este código</div>
+          <div class="pin-label">Go to plex.tv/link and enter this code</div>
           <div class="pin-code" id="pin-display">——</div>
           <div style="display:flex;align-items:center;gap:10px">
             <div class="pin-spinner" id="pin-spinner"></div>
-            <span style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--dim)">A aguardar confirmação...</span>
+            <span style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--dim)">Waiting for confirmation...</span>
           </div>
           <div class="pin-sub">
-            Abre <a href="https://plex.tv/link" target="_blank">plex.tv/link</a> no teu telemóvel ou PC<br>
-            e introduz o código acima para autorizar.
+            Open <a href="https://plex.tv/link" target="_blank">plex.tv/link</a> on your phone or PC<br>
+            and enter the code above to authorize.
           </div>
-          <button class="btn-sm" onclick="cancelPin()">Cancelar</button>
+          <button class="btn-sm" onclick="cancelPin()">Cancel</button>
         </div>
 
         <div style="margin-top:16px;max-width:420px;background:rgba(229,160,13,0.05);border:1px solid rgba(229,160,13,0.15);border-radius:8px;padding:14px 16px">
-          <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--plex);letter-spacing:2px;margin-bottom:8px">COMO OBTER O TOKEN</div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--plex);letter-spacing:2px;margin-bottom:8px">HOW TO GET THE TOKEN</div>
           <ol style="font-size:12px;color:var(--dim);line-height:1.8;padding-left:18px">
-            <li>Abre <strong style="color:var(--text)">app.plex.tv</strong> no browser</li>
-            <li>Clica com o botão direito num filme → <em>Ver XML</em></li>
-            <li>No URL da nova tab, copia o valor de <code style="color:var(--plex);font-family:'Share Tech Mono',monospace;font-size:10px">X-Plex-Token=...</code></li>
+            <li>Open <strong style="color:var(--text)">app.plex.tv</strong> in a browser</li>
+            <li>Right-click a movie → <em>View XML</em></li>
+            <li>In the new tab URL, copy the value of <code style="color:var(--plex);font-family:'Share Tech Mono',monospace;font-size:10px">X-Plex-Token=...</code></li>
           </ol>
         </div>
       </div>
@@ -904,10 +903,10 @@
       <!-- Library -->
       <div id="plex-library">
         <div class="lib-header">
-          <span class="lib-server-name" id="lib-server-name">🎬 A carregar...</span>
+          <span class="lib-server-name" id="lib-server-name">🎬 Loading...</span>
           <div style="display:flex;gap:8px">
-            <button class="btn-sm" onclick="refreshLibrary()">↺ Atualizar</button>
-            <button class="btn-logout" onclick="plexLogout()">Desligar</button>
+            <button class="btn-sm" onclick="refreshLibrary()">↺ Refresh</button>
+            <button class="btn-logout" onclick="plexLogout()">Disconnect</button>
           </div>
         </div>
         <div class="lib-sections" id="lib-sections"></div>
@@ -923,7 +922,7 @@
             <div class="np-meta" id="np-meta">—</div>
           </div>
           <div class="np-actions">
-            <button class="btn-sm" onclick="closePlexPlayer()">↩ Biblioteca</button>
+            <button class="btn-sm" onclick="closePlexPlayer()">↩ Library</button>
           </div>
         </div>
       </div>
@@ -931,9 +930,9 @@
     </div>
 
     <div class="cards">
-      <div class="info-card"><div class="ic-num">// 01</div><div class="ic-title">Plex API</div><div class="ic-desc">Usa a <code>Plex HTTP API</code> para listar a biblioteca e obter o stream direto com o token.</div></div>
-      <div class="info-card"><div class="ic-num">// 02</div><div class="ic-title">Direct Play</div><div class="ic-desc">Usa <code>/video/:/transcode</code> ou direct play via <code>/library/parts</code> — sem plugin.</div></div>
-      <div class="info-card"><div class="ic-num">// 03</div><div class="ic-title">Drive Bypass</div><div class="ic-desc">Mesmo bypass aplicado: <code>visibilitychange</code> + AudioContext + Wake Lock.</div></div>
+      <div class="info-card"><div class="ic-num">// 01</div><div class="ic-title">Plex API</div><div class="ic-desc">Uses the <code>Plex HTTP API</code> to list the library and obtain the direct stream with the token.</div></div>
+      <div class="info-card"><div class="ic-num">// 02</div><div class="ic-title">Direct Play</div><div class="ic-desc">Uses <code>/video/:/transcode</code> or direct play via <code>/library/parts</code> — no plugin required.</div></div>
+      <div class="info-card"><div class="ic-num">// 03</div><div class="ic-title">Drive Bypass</div><div class="ic-desc">Same bypass applied: <code>visibilitychange</code> + AudioContext + Wake Lock.</div></div>
     </div>
   </div>
 
@@ -941,8 +940,8 @@
   <div class="tab-panel" id="tab-jelly">
     <div class="player-card">
       <div class="player-header">
-        <span class="player-title">Jellyfin — Streaming com Drive Bypass</span>
-        <span class="badge jelly" id="jelly-badge">DESLIGADO</span>
+        <span class="player-title">Jellyfin — Streaming with Drive Bypass</span>
+        <span class="badge jelly" id="jelly-badge">DESCONNECTED</span>
       </div>
 
       <!-- Connect screen -->
@@ -956,37 +955,37 @@
           </div>
           <span class="jelly-logo-text">JELLYFIN</span>
         </div>
-        <p class="jelly-desc">Liga ao teu servidor Jellyfin para aceder à tua biblioteca de filmes e séries com o bypass de condução ativo. Gratuito e open-source, sem conta obrigatória.</p>
+        <p class="jelly-desc">Connect to your Jellyfin server to access your movie and series library with the driving bypass active. Free and open-source, no account required.</p>
 
         <div class="jelly-form">
           <div class="field-group">
-            <label class="field-label">Endereço do Servidor Jellyfin</label>
+            <label class="field-label">Jellyfin Server Address</label>
             <input class="jelly-field-input" type="text" id="jelly-server-url"
               placeholder="http://192.168.1.100:8096">
           </div>
           <div class="field-group">
-            <label class="field-label">Utilizador</label>
+            <label class="field-label">Username</label>
             <input class="jelly-field-input" type="text" id="jelly-username"
-              placeholder="O teu utilizador Jellyfin"
+              placeholder="Your Jellyfin username"
               onkeydown="if(event.key==='Enter') document.getElementById('jelly-password').focus()">
           </div>
           <div class="field-group">
-            <label class="field-label">Palavra-passe</label>
+            <label class="field-label">Password</label>
             <input class="jelly-field-input" type="password" id="jelly-password"
-              placeholder="A tua palavra-passe"
+              placeholder="Your password"
               onkeydown="if(event.key==='Enter') connectJellyfin()">
           </div>
-          <button class="jelly-btn" id="jelly-connect-btn" onclick="connectJellyfin()">🪼 Ligar ao Jellyfin</button>
+          <button class="jelly-btn" id="jelly-connect-btn" onclick="connectJellyfin()">🪼 Connect to Jellyfin</button>
           <div id="jellyfin-error"></div>
         </div>
 
         <div style="margin-top:8px;max-width:420px;background:rgba(0,164,220,0.05);border:1px solid rgba(0,164,220,0.15);border-radius:8px;padding:14px 16px">
-          <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#00a4dc;letter-spacing:2px;margin-bottom:8px">COMO INSTALAR O JELLYFIN</div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#00a4dc;letter-spacing:2px;margin-bottom:8px">HOW TO INSTALL JELLYFIN</div>
           <ol style="font-size:12px;color:var(--dim);line-height:1.9;padding-left:18px">
-            <li>Descarrega o <a href="https://jellyfin.org/downloads" target="_blank" style="color:#00a4dc;text-decoration:none">Jellyfin Server</a> para Windows/Mac/Linux/NAS</li>
-            <li>Instala e abre <code style="color:#00a4dc;font-family:'Share Tech Mono',monospace;font-size:10px">http://localhost:8096</code> para configurar</li>
-            <li>Adiciona a tua pasta de filmes/séries como biblioteca</li>
-            <li>Para acesso fora de casa, configura o <em>Remote Access</em> nas definições</li>
+            <li>Download the <a href="https://jellyfin.org/downloads" target="_blank" style="color:#00a4dc;text-decoration:none">Jellyfin Server</a> for Windows/Mac/Linux/NAS</li>
+            <li>Install it and open <code style="color:#00a4dc;font-family:'Share Tech Mono',monospace;font-size:10px">http://localhost:8096</code> to configure it</li>
+            <li>Add your movie/series folder as a library</li>
+            <li>For access outside the home, configure <em>Remote Access</em> in the settings</li>
           </ol>
         </div>
       </div>
@@ -994,10 +993,10 @@
       <!-- Library -->
       <div id="jellyfin-library">
         <div class="jelly-lib-header">
-          <span class="jelly-server-name" id="jelly-server-name">🪼 A carregar...</span>
+          <span class="jelly-server-name" id="jelly-server-name">🪼 Loading...</span>
           <div style="display:flex;gap:8px">
-            <button class="btn-sm" onclick="jellyRefresh()">↺ Atualizar</button>
-            <button class="btn-logout" onclick="jellyLogout()">Desligar</button>
+            <button class="btn-sm" onclick="jellyRefresh()">↺ Refresh</button>
+            <button class="btn-logout" onclick="jellyLogout()">Disconnect</button>
           </div>
         </div>
         <div class="jelly-sections" id="jelly-sections"></div>
@@ -1013,7 +1012,7 @@
             <div class="np-meta" id="jelly-np-meta">—</div>
           </div>
           <div class="np-actions">
-            <button class="btn-sm" onclick="closeJellyPlayer()">↩ Biblioteca</button>
+            <button class="btn-sm" onclick="closeJellyPlayer()">↩ Library</button>
           </div>
         </div>
       </div>
@@ -1021,10 +1020,10 @@
     </div>
 
     <div class="cards">
-      <div class="info-card"><div class="ic-num">// 01</div><div class="ic-title">Jellyfin API</div><div class="ic-desc">Usa a <code>Jellyfin REST API</code> com autenticação por token — sem plugins nem middleware.</div></div>
-      <div class="info-card"><div class="ic-num">// 02</div><div class="ic-title">Open-Source</div><div class="ic-desc">100% gratuito, sem conta obrigatória, sem limites. Corre no teu servidor ou NAS em casa.</div></div>
-      <div class="info-card"><div class="ic-num">// 03</div><div class="ic-title">Direct Stream</div><div class="ic-desc">Usa <code>/Videos/{id}/stream</code> para direct play — sem transcodificação se o formato for compatível.</div></div>
-      <div class="info-card"><div class="ic-num">// 04</div><div class="ic-title">Drive Bypass</div><div class="ic-desc">Mesmo bypass aplicado: <code>visibilitychange</code> + AudioContext + Wake Lock + Pause Intercept.</div></div>
+      <div class="info-card"><div class="ic-num">// 01</div><div class="ic-title">Jellyfin API</div><div class="ic-desc">Uses the <code>Jellyfin REST API</code> with token authentication — no plugins or middleware.</div></div>
+      <div class="info-card"><div class="ic-num">// 02</div><div class="ic-title">Open-Source</div><div class="ic-desc">100% free, no account required, no limits. Runs on your own server or NAS at home.</div></div>
+      <div class="info-card"><div class="ic-num">// 03</div><div class="ic-title">Direct Stream</div><div class="ic-desc">Uses <code>/Videos/{id}/stream</code> for direct play — no transcoding if the format is compatible.</div></div>
+      <div class="info-card"><div class="ic-num">// 04</div><div class="ic-title">Drive Bypass</div><div class="ic-desc">Same bypass used: <code>visibilitychange</code> + AudioContext + Wake Lock + Pause Intercept.</div></div>
     </div>
   </div>
 
@@ -1032,8 +1031,8 @@
   <div class="tab-panel" id="tab-iptv">
     <div class="player-card">
       <div class="player-header">
-        <span class="player-title">IPTV — M3U Playlist com Drive Bypass</span>
-        <span class="badge" style="color:var(--blue);border-color:var(--blue)" id="iptv-badge">DESLIGADO</span>
+        <span class="player-title">IPTV — M3U Playlist with Drive Bypass</span>
+        <span class="badge" style="color:var(--blue);border-color:var(--blue)" id="iptv-badge">DISCONNECTED</span>
       </div>
 
       <!-- Setup screen -->
@@ -1042,26 +1041,26 @@
           <div class="iptv-logo-icon">📡</div>
           <span class="iptv-logo-text">IPTV</span>
         </div>
-        <p class="iptv-desc">Cola o URL de uma lista M3U para aceder aos teus canais IPTV com o bypass de condução ativo.</p>
+        <p class="iptv-desc">Paste the URL of an M3U playlist to access your IPTV channels with the driving bypass active.</p>
 
         <div class="iptv-form">
           <div class="field-group">
-            <label class="field-label">URL da lista M3U</label>
+            <label class="field-label">M3U playlist URL</label>
             <input class="field-input" type="text" id="iptv-m3u-url"
-              placeholder="http://servidor.com/lista.m3u ou .m3u8"
+              placeholder="http://server.com/list.m3u or .m3u8"
               onkeydown="if(event.key==='Enter') loadM3U()">
           </div>
-          <button class="iptv-btn" onclick="loadM3U()" id="iptv-load-btn">📡 Carregar Lista</button>
+          <button class="iptv-btn" onclick="loadM3U()" id="iptv-load-btn">📡 Load Playlist</button>
           <div id="iptv-error"></div>
         </div>
 
         <div style="margin-top:8px;max-width:480px;background:rgba(0,180,216,0.04);border:1px solid rgba(0,180,216,0.15);border-radius:8px;padding:14px 16px">
-          <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:2px;margin-bottom:8px">FORMATOS SUPORTADOS</div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:2px;margin-bottom:8px">SUPPORTED FORMATS</div>
           <div style="font-size:12px;color:var(--dim);line-height:1.8">
-            ✓ Listas <code style="color:var(--blue);font-family:'Share Tech Mono',monospace;font-size:10px">.m3u</code> e <code style="color:var(--blue);font-family:'Share Tech Mono',monospace;font-size:10px">.m3u8</code><br>
-            ✓ Streams <code style="color:var(--blue);font-family:'Share Tech Mono',monospace;font-size:10px">HLS</code> e <code style="color:var(--blue);font-family:'Share Tech Mono',monospace;font-size:10px">MP4/TS</code> diretos<br>
-            ✓ Grupos e logos incluídos na lista<br>
-            ⚠ O servidor IPTV precisa de suportar CORS (ou usar proxy)
+            ✓ <code style="color:var(--blue);font-family:'Share Tech Mono',monospace;font-size:10px">.m3u</code> and <code style="color:var(--blue);font-family:'Share Tech Mono',monospace;font-size:10px">.m3u8</code> playlists<br>
+            ✓ Direct <code style="color:var(--blue);font-family:'Share Tech Mono',monospace;font-size:10px">HLS</code> and <code style="color:var(--blue);font-family:'Share Tech Mono',monospace;font-size:10px">MP4/TS</code> streams<br>
+            ✓ Groups and logos included in the list<br>
+            ⚠ The IPTV server must support CORS (or use a proxy)
           </div>
         </div>
       </div>
@@ -1069,15 +1068,15 @@
       <!-- Channel Library -->
       <div id="iptv-library">
         <div class="iptv-lib-header">
-          <span class="iptv-lib-name" id="iptv-lib-name">📡 Canais</span>
+          <span class="iptv-lib-name" id="iptv-lib-name">📡 Channels</span>
           <div style="display:flex;gap:8px;align-items:center">
             <span class="iptv-ch-count" id="iptv-ch-count"></span>
-            <button class="btn-sm" onclick="iptvLogout()">✕ Desligar</button>
+            <button class="btn-sm" onclick="iptvLogout()">✕ Disconnect</button>
           </div>
         </div>
         <div class="iptv-search-wrap">
           <input class="iptv-filter-input" type="text" id="iptv-filter"
-            placeholder="🔍  Filtrar canais..."
+            placeholder="🔍  Filter channels..."
             oninput="filterIptvChannels(this.value)">
         </div>
         <div class="iptv-group-tabs" id="iptv-groups"></div>
@@ -1093,9 +1092,9 @@
             <div class="np-meta" id="iptv-np-group">—</div>
           </div>
           <div class="np-actions iptv-nav-btns">
-            <button class="btn-sm" onclick="iptvPrevChannel()" title="Canal anterior">◀ Anterior</button>
-            <button class="btn-sm" onclick="iptvNextChannel()" title="Próximo canal">Próximo ▶</button>
-            <button class="btn-sm" onclick="closeIptvPlayer()">↩ Lista</button>
+            <button class="btn-sm" onclick="iptvPrevChannel()" title="Previous channel">◀ Previous</button>
+            <button class="btn-sm" onclick="iptvNextChannel()" title="Next channel">Next ▶</button>
+            <button class="btn-sm" onclick="closeIptvPlayer()">↩ List</button>
           </div>
         </div>
       </div>
@@ -1103,23 +1102,23 @@
     </div>
 
     <div class="cards">
-      <div class="info-card"><div class="ic-num">// 01</div><div class="ic-title">M3U Parser</div><div class="ic-desc">Faz parse da lista <code>#EXTM3U</code> diretamente no browser — sem servidor, sem instalação.</div></div>
-      <div class="info-card"><div class="ic-num">// 02</div><div class="ic-title">HLS Native</div><div class="ic-desc">O Tesla Chromium suporta streams <code>HLS</code> nativamente via <code>&lt;video&gt;</code> — sem plugins.</div></div>
-      <div class="info-card"><div class="ic-num">// 03</div><div class="ic-title">Drive Bypass</div><div class="ic-desc">Mesmo bypass aplicado: <code>visibilitychange</code> + AudioContext + Pause Intercept.</div></div>
-      <div class="info-card"><div class="ic-num">// 04</div><div class="ic-title">Navegação</div><div class="ic-desc">Troca de canal com botões <code>Anterior/Próximo</code> sem sair do ecrã de reprodução.</div></div>
+      <div class="info-card"><div class="ic-num">// 01</div><div class="ic-title">M3U Parser</div><div class="ic-desc">Parses the <code>#EXTM3U</code> list directly in the browser — no server, no installation.</div></div>
+      <div class="info-card"><div class="ic-num">// 02</div><div class="ic-title">HLS Native</div><div class="ic-desc">Tesla Chromium supports <code>HLS</code> streams natively via <code>&lt;video&gt;</code> — no plugins.</div></div>
+      <div class="info-card"><div class="ic-num">// 03</div><div class="ic-title">Drive Bypass</div><div class="ic-desc">Same bypass applied: <code>visibilitychange</code> + AudioContext + Pause Intercept.</div></div>
+      <div class="info-card"><div class="ic-num">// 04</div><div class="ic-title">Navigation</div><div class="ic-desc">Channel switching with <code>Previous/Next</code> buttons without leaving the playback screen.</div></div>
     </div>
   </div>
 
-  <!-- ══ TAB: CÓDIGO ══ -->
+  <!-- ══ TAB: CODE ══ -->
   <div class="tab-panel" id="tab-code">
     <div class="player-card">
       <div class="player-header">
-        <span class="player-title">tesla-bypass.js — Código Completo</span>
-        <button id="copy-btn" onclick="copyCode()" style="background:transparent;border:1px solid var(--border);color:var(--dim);font-family:'Share Tech Mono',monospace;font-size:10px;padding:4px 12px;border-radius:3px;cursor:pointer;letter-spacing:1px;transition:all 0.2s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--dim)'">COPIAR</button>
+        <span class="player-title">tesla-bypass.js — Complete Code</span>
+        <button id="copy-btn" onclick="copyCode()" style="background:transparent;border:1px solid var(--border);color:var(--dim);font-family:'Share Tech Mono',monospace;font-size:10px;padding:4px 12px;border-radius:3px;cursor:pointer;letter-spacing:1px;transition:all 0.2s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--dim)'">COPY</button>
       </div>
       <pre id="code-block" style="padding:22px;font-family:'Share Tech Mono',monospace;font-size:12px;line-height:1.75;color:#7a9ab5;overflow-x:auto;background:#040608"><span style="color:#3d5570">// ─────────────────────────────────────────────────────
 // Tesla Drive Mode Video Bypass — tesla-bypass.js
-// Funciona no browser Chromium embebido do Tesla
+// Works in Tesla's embedded Chromium browser
 // ─────────────────────────────────────────────────────</span>
 
 (<span style="color:#569cd6">function</span> <span style="color:#dcdcaa">TeslaBypass</span>() {
@@ -1128,60 +1127,60 @@
   <span style="color:#569cd6">let</span> wakeLock = <span style="color:#569cd6">null</span>;
   <span style="color:#569cd6">let</span> userPaused = <span style="color:#569cd6">false</span>;
 
-  <span style="color:#3d5570">// ── 1. AudioContext — mantém pipeline de áudio ativo</span>
+  <span style="color:#3d5570">// ── 1. AudioContext — keeps the audio pipeline active</span>
   <span style="color:#569cd6">function</span> <span style="color:#dcdcaa">initAudio</span>() {
     <span style="color:#569cd6">if</span> (audioCtx) <span style="color:#569cd6">return</span>;
     audioCtx = <span style="color:#569cd6">new</span> (window.AudioContext || window.webkitAudioContext)();
     <span style="color:#569cd6">const</span> src = audioCtx.<span style="color:#dcdcaa">createMediaElementSource</span>(video);
     src.<span style="color:#dcdcaa">connect</span>(audioCtx.destination);
   }
-  <span style="color:#3d5570">// Requer interação do utilizador para iniciar</span>
+  <span style="color:#3d5570">// Requires user interaction to start</span>
   document.<span style="color:#dcdcaa">addEventListener</span>(<span style="color:#ce9178">'click'</span>, initAudio, { once: <span style="color:#569cd6">true</span> });
 
-  <span style="color:#3d5570">// ── 2. Wake Lock — impede o ecrã de adormecer</span>
+  <span style="color:#3d5570">// ── 2. Wake Lock — prevents the screen from sleeping</span>
   <span style="color:#569cd6">async function</span> <span style="color:#dcdcaa">requestWakeLock</span>() {
     <span style="color:#569cd6">try</span> {
       wakeLock = <span style="color:#569cd6">await</span> navigator.wakeLock.<span style="color:#dcdcaa">request</span>(<span style="color:#ce9178">'screen'</span>);
       wakeLock.<span style="color:#dcdcaa">addEventListener</span>(<span style="color:#ce9178">'release'</span>, () => {
-        <span style="color:#3d5570">// Recupera o wake lock quando possível</span>
+        <span style="color:#3d5570">// Reacquire the wake lock when possible</span>
         <span style="color:#569cd6">if</span> (document.visibilityState === <span style="color:#ce9178">'visible'</span>) <span style="color:#dcdcaa">requestWakeLock</span>();
       });
-    } <span style="color:#569cd6">catch</span> (e) { <span style="color:#3d5570">/* API não suportada */</span> }
+    } <span style="color:#569cd6">catch</span> (e) { <span style="color:#3d5570">/* API not supported */</span> }
   }
   <span style="color:#dcdcaa">requestWakeLock</span>();
 
-  <span style="color:#3d5570">// ── 3. O TRUQUE PRINCIPAL ─────────────────────────
-  // O Tesla dispara visibilitychange → 'hidden'
-  // quando o carro sai do lugar (entra em Drive/Reverse).
-  // O browser pausa automaticamente qualquer &lt;video&gt;.
-  // Intercetamos e forçamos a retoma imediata.</span>
+  <span style="color:#3d5570">// ── 3. THE MAIN TRICK ─────────────────────────
+  // Tesla fires visibilitychange → 'hidden'
+  // when the car leaves the stop position (enters Drive/Reverse).
+  // The browser automatically pauses any &lt;video&gt;.
+  // We intercept it and force an immediate resume.</span>
   document.<span style="color:#dcdcaa">addEventListener</span>(<span style="color:#00e676">'visibilitychange'</span>, () => {
     <span style="color:#569cd6">if</span> (document.visibilityState === <span style="color:#ce9178">'hidden'</span>) {
-      <span style="color:#3d5570">// Retoma o AudioContext se suspenso</span>
+      <span style="color:#3d5570">// Resume AudioContext if suspended</span>
       <span style="color:#569cd6">if</span> (audioCtx?.state === <span style="color:#ce9178">'suspended'</span>) audioCtx.<span style="color:#dcdcaa">resume</span>();
-      <span style="color:#3d5570">// Força retoma do vídeo</span>
+      <span style="color:#3d5570">// Force the video to resume</span>
       video.<span style="color:#dcdcaa">play</span>().<span style="color:#dcdcaa">catch</span>(() => {});
     } <span style="color:#569cd6">else</span> {
-      <span style="color:#3d5570">// Recupera wake lock quando visível</span>
+      <span style="color:#3d5570">// Reacquire wake lock when visible</span>
       <span style="color:#569cd6">if</span> (!wakeLock || wakeLock.released) <span style="color:#dcdcaa">requestWakeLock</span>();
     }
   });
 
-  <span style="color:#3d5570">// ── 4. Interceta pausas involuntárias
-  // Além do visibilitychange, o Tesla pode tentar pausar
-  // o vídeo por outros meios. Este handler garante a retoma.</span>
+  <span style="color:#3d5570">// ── 4. Intercept accidental pauses
+  // In addition to visibilitychange, Tesla may attempt to pause
+  // the video through other means. This handler guarantees a resume.</span>
   video.<span style="color:#dcdcaa">addEventListener</span>(<span style="color:#00e676">'pause'</span>, () => {
     <span style="color:#569cd6">if</span> (!userPaused) {
       <span style="color:#dcdcaa">setTimeout</span>(() => video.<span style="color:#dcdcaa">play</span>().<span style="color:#dcdcaa">catch</span>(() => {}), 80);
     }
   });
 
-  <span style="color:#3d5570">// Distingue pausa do utilizador vs pausa do sistema</span>
+  <span style="color:#3d5570">// Distinguish user pause vs system pause</span>
   video.<span style="color:#dcdcaa">addEventListener</span>(<span style="color:#00e676">'click'</span>, () => {
     userPaused = video.paused ? <span style="color:#569cd6">false</span> : <span style="color:#569cd6">true</span>;
   });
 
-  <span style="color:#3d5570">// ── 5. PLEX — fetch com token direto ao servidor</span>
+  <span style="color:#3d5570">// ── 5. PLEX — fetch directly from the server with a token</span>
   <span style="color:#569cd6">async function</span> <span style="color:#dcdcaa">plexFetch</span>(serverUrl, token, path) {
     <span style="color:#569cd6">const</span> url = <span style="color:#ce9178">`${serverUrl}${path}?X-Plex-Token=${token}`</span>;
     <span style="color:#569cd6">const</span> res = <span style="color:#569cd6">await</span> <span style="color:#dcdcaa">fetch</span>(url, {
@@ -1195,12 +1194,12 @@
     <span style="color:#569cd6">return</span> res.<span style="color:#dcdcaa">json</span>();
   }
 
-  <span style="color:#3d5570">// Obter URL de stream direto de um item Plex</span>
+  <span style="color:#3d5570">// Get a direct stream URL for a Plex item</span>
   <span style="color:#569cd6">async function</span> <span style="color:#dcdcaa">getPlexStream</span>(serverUrl, token, ratingKey) {
     <span style="color:#569cd6">const</span> data = <span style="color:#569cd6">await</span> <span style="color:#dcdcaa">plexFetch</span>(serverUrl, token,
       <span style="color:#ce9178">`/library/metadata/${ratingKey}`</span>);
     <span style="color:#569cd6">const</span> part = data?.MediaContainer?.Metadata?.[<span style="color:#b5cea8">0</span>]?.Media?.[<span style="color:#b5cea8">0</span>]?.Part?.[<span style="color:#b5cea8">0</span>];
-    <span style="color:#569cd6">if</span> (!part?.key) <span style="color:#569cd6">throw new</span> Error(<span style="color:#ce9178">'Stream não encontrado'</span>);
+    <span style="color:#569cd6">if</span> (!part?.key) <span style="color:#569cd6">throw new</span> Error(<span style="color:#ce9178">'Stream not found'</span>);
     <span style="color:#569cd6">return</span> <span style="color:#ce9178">`${serverUrl}${part.key}?X-Plex-Token=${token}`</span>;
   }
 
@@ -1208,9 +1207,9 @@
     </div>
 
     <div class="cards" style="margin-top:16px">
-      <div class="info-card"><div class="ic-num">// resumo</div><div class="ic-title">Como Usar</div><div class="ic-desc">Inclui este script em qualquer página com um <code>&lt;video&gt;</code> para ativar o bypass no Tesla.</div></div>
-      <div class="info-card"><div class="ic-num">// plex</div><div class="ic-title">Plex Stream URL</div><div class="ic-desc">Usa <code>plexFetch()</code> para obter o URL direto do ficheiro e atribui ao <code>video.src</code>.</div></div>
-      <div class="info-card"><div class="ic-num">// compat</div><div class="ic-title">Compatibilidade</div><div class="ic-desc">Testado no Tesla Chromium. Funciona também em qualquer browser moderno com <code>visibilitychange</code>.</div></div>
+      <div class="info-card"><div class="ic-num">// summary</div><div class="ic-title">How to Use</div><div class="ic-desc">Include this script in any page with a <code>&lt;video&gt;</code> element to enable the bypass on Tesla.</div></div>
+      <div class="info-card"><div class="ic-num">// plex</div><div class="ic-title">Plex Stream URL</div><div class="ic-desc">Use <code>plexFetch()</code> to get the direct file URL and assign it to <code>video.src</code>.</div></div>
+      <div class="info-card"><div class="ic-num">// compat</div><div class="ic-title">Compatibility</div><div class="ic-desc">Tested on Tesla Chromium. Also works in modern browsers with <code>visibilitychange</code>.</div></div>
     </div>
   </div>
 
@@ -1220,27 +1219,27 @@
       <div class="player-header">
         <span class="player-title" style="display:flex;align-items:center;gap:10px;">
           <span class="netflix-logo" style="font-size:18px">NETFLIX</span>
-          <span style="color:var(--dim);font-size:10px;letter-spacing:2px;">— BYPASS ATIVO</span>
+          <span style="color:var(--dim);font-size:10px;letter-spacing:2px;">— ACTIVE BYPASS</span>
         </span>
-        <span class="badge" style="color:#e50914;border-color:#e50914">BYPASS ATIVO</span>
+        <span class="badge" style="color:#e50914;border-color:#e50914">ACTIVE BYPASS</span>
       </div>
       <!-- Instructions -->
       <div class="netflix-instructions">
         <div class="netflix-step">
           <div class="netflix-step-num">1</div>
-          <div>Clica em <strong style="color:var(--text)">Abrir Netflix</strong> abaixo. O site abre numa nova janela/tab do browser do Tesla.</div>
+          <div>Click <strong style="color:var(--text)">Open Netflix</strong> below. The site opens in a new window/tab in the Tesla browser.</div>
         </div>
         <div class="netflix-step">
           <div class="netflix-step-num">2</div>
-          <div>Faz login na tua conta Netflix e inicia a reprodução de um filme ou série <strong style="color:var(--text)">antes de arrancar</strong>.</div>
+          <div>Log in to your Netflix account and start playing a movie or series <strong style="color:var(--text)">before driving off</strong>.</div>
         </div>
         <div class="netflix-step">
           <div class="netflix-step-num">3</div>
-          <div>Volta a esta tab — o bypass fica ativo em segundo plano e interceta os eventos de pausa do Tesla automaticamente.</div>
+          <div>Return to this tab — the bypass stays active in the background and automatically intercepts Tesla pause events.</div>
         </div>
         <div class="netflix-step">
           <div class="netflix-step-num">4</div>
-          <div>Arranca. O vídeo da Netflix continua a tocar graças ao <code style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#00e676;background:rgba(0,230,118,0.08);padding:1px 5px;border-radius:2px;">AudioContext</code> + <code style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#00e676;background:rgba(0,230,118,0.08);padding:1px 5px;border-radius:2px;">visibilitychange</code> bypass.</div>
+          <div>Start driving. The Netflix video keeps playing thanks to the <code style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#00e676;background:rgba(0,230,118,0.08);padding:1px 5px;border-radius:2px;">AudioContext</code> + <code style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#00e676;background:rgba(0,230,118,0.08);padding:1px 5px;border-radius:2px;">visibilitychange</code> bypass.</div>
         </div>
       </div>
       <!-- Open Netflix button -->
@@ -1250,10 +1249,10 @@
           onmouseover="this.style.boxShadow='0 6px 32px rgba(229,9,20,0.6)'"
           onmouseout="this.style.boxShadow='0 4px 24px rgba(229,9,20,0.4)'">
           <svg width="20" height="20" viewBox="0 0 111 190" fill="#fff"><path d="M0 0h30v190H0zM81 0h30v190H81zM0 80h111v30H0z" fill="none"/><path d="M0 0l111 190h-30L0 30z"/><path d="M111 0L0 190h30l81-160z" fill="#fff"/></svg>
-          Abrir Netflix
+          Open Netflix
         </a>
         <p style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);text-align:center;line-height:1.7;max-width:400px;">
-          O bypass está sempre ativo nesta página. Abre a Netflix noutra tab, dá play e volta aqui. Quando arrancares o bypass mantém o áudio/vídeo ativo via AudioContext e interceta qualquer pausa.
+          The bypass is always active on this page. Open Netflix in another tab, play something, and come back here. When you start driving, the bypass keeps the audio/video active via AudioContext and intercepts any pause.
         </p>
       </div>
       <!-- Status -->
@@ -1263,9 +1262,9 @@
       </div>
     </div>
     <div class="cards">
-      <div class="info-card"><div class="ic-num">// método</div><div class="ic-title">Como Funciona</div><div class="ic-desc">A Netflix usa o player HTML5 nativo. O bypass interceta os eventos <code>visibilitychange</code> e <code>pause</code> que o Tesla dispara ao entrar em marcha.</div></div>
-      <div class="info-card"><div class="ic-num">// limitação</div><div class="ic-title">DRM</div><div class="ic-desc">O conteúdo Netflix usa <code>Widevine DRM</code>. Funciona no Chromium do Tesla (suporta L3). Qualidade pode variar conforme o plano.</div></div>
-      <div class="info-card"><div class="ic-num">// alternativa</div><div class="ic-title">Sem App</div><div class="ic-desc">Não existe app nativa da Netflix para o Tesla. Esta é a melhor solução: browser + bypass. Usa Wi-Fi ou hotspot para melhor qualidade.</div></div>
+      <div class="info-card"><div class="ic-num">// method</div><div class="ic-title">How it Works</div><div class="ic-desc">Netflix uses the native HTML5 player. The bypass intercepts the <code>visibilitychange</code> and <code>pause</code> events that Tesla fires when entering drive mode.</div></div>
+      <div class="info-card"><div class="ic-num">// limitation</div><div class="ic-title">DRM</div><div class="ic-desc">Netflix content uses <code>Widevine DRM</code>. It works in Tesla Chromium (supports L3). Quality may vary depending on the plan.</div></div>
+      <div class="info-card"><div class="ic-num">// alternative</div><div class="ic-title">No App</div><div class="ic-desc">There is no native Netflix app for Tesla. This is the best solution: browser + bypass. Use Wi‑Fi or a hotspot for better quality.</div></div>
     </div>
   </div>
 
@@ -1299,25 +1298,15 @@
       </div>
 
       <div class="tesla-note">
-        <strong>Como funciona:</strong> O Tesla expõe dados do veículo através de variáveis JavaScript acessíveis no browser integrado — <strong style="color:#00e676">sem necessidade de API externa ou token</strong>. Esta aba lê diretamente essas variáveis: velocidade, bateria, temperatura, localização e mais.<br><br>
-        <strong>No PC/telemóvel:</strong> Os dados mostrados são simulados (n/d). No Tesla real os valores são em tempo real atualizados de 2 em 2 segundos.
+        <strong>How it works:</strong> Tesla exposes vehicle data through JavaScript variables accessible in the built-in browser — <strong style="color:#00e676">no external API or token required</strong>. This tab reads those variables directly: speed, battery, temperature, location, and more.<br><br>
+        <strong>On a PC/phone:</strong> The displayed data is simulated (n/a). On a real Tesla, the values are updated in real time every 2 seconds.
       </div>
     </div>
   </div>
 
   <footer>
-    <div style="margin-bottom:24px;padding:18px 20px;background:rgba(232,168,0,0.05);border:1px solid rgba(232,168,0,0.18);border-radius:12px;display:inline-flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;">
-      <a href="https://paypal.me/Davidfferreira1986?locale.x=pt_PT&country.x=PT" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
-        <img src="https://em-content.zobj.net/source/microsoft/379/hot-beverage_2615.png" alt="☕" style="width:40px;height:40px;filter:drop-shadow(0 0 8px rgba(232,168,0,0.5));">
-        <span style="font-family:'Exo 2',sans-serif;font-size:13px;color:var(--text);line-height:1.5;text-align:left;">
-          <span style="display:block;font-weight:600;color:var(--accent);font-size:14px;letter-spacing:0.5px;">Gostaste do projeto?</span>
-          Podes poupar em gasolina, mas o café do developer ainda custa dinheiro ☕<br>
-          <span style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--dim);">Convida-me a um café → paypal.me/Davidfferreira1986</span>
-        </span>
-      </a>
-    </div>
-    <p>Tesla Media Center — <a href="https://github.com/DavidFFerrreira/TeslaMediaCenter" target="_blank">github.com/DavidFFerrreira/TeslaMediaCenter</a></p>
-    <p style="opacity:0.4;margin-top:4px">⚠ Usa apenas como passageiro. Conduz com atenção.</p>
+    <p>Tesla Media Center — <a href="https://emanuel0723.github.io/TeslaMediaCenter-local" target="_blank">github.com/emanuel0723/TeslaMediaCenter-local</a></p>
+    <p style="opacity:0.4;margin-top:4px">⚠ Use only as a passenger. Drive carefully.</p>
   </footer>
 
 </div>
@@ -1340,7 +1329,7 @@ function copyCode() {
 }
 
 // ════════════════════════════════════════
-// BYPASS ENGINE — aplica a todos os vídeos
+// BYPASS ENGINE — applies to all videos
 // ════════════════════════════════════════
 let audioCtx = null;
 let wakeLock = null;
@@ -1360,7 +1349,7 @@ async function grabWakeLock() {
   try {
     if (wakeLock && !wakeLock.released) return;
     wakeLock = await navigator.wakeLock.request('screen');
-    setStatus('s-wake', 'ATIVO', '');
+    setStatus('s-wake', 'ACTIVE', '');
     wakeLock.addEventListener('release', () => setStatus('s-wake', 'LIBERADO', 'warn'));
   } catch (e) {
     setStatus('s-wake', 'N/D', 'off');
@@ -1368,13 +1357,13 @@ async function grabWakeLock() {
 }
 grabWakeLock();
 
-// AudioContext init (precisa de interação)
+// AudioContext init (requires user interaction)
 const audioNodes = new WeakMap();
 function ensureAudio(videoEl) {
   try {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      setStatus('s-audio', 'ATIVO', '');
+      setStatus('s-audio', 'ACTIVE', '');
     }
     if (audioCtx.state === 'suspended') audioCtx.resume();
     if (videoEl && !audioNodes.has(videoEl)) {
@@ -1385,8 +1374,8 @@ function ensureAudio(videoEl) {
   } catch(e) {}
 }
 
-// ── Deteção de condução por polling do gear (Tesla Chromium expõe window.tesla.ShiftState) ──
-// Isto é mais fiável do que visibilitychange em algumas versões de firmware
+// ── Driving detection by polling the gear state (Tesla Chromium exposes window.tesla.ShiftState) ──
+// This is more reliable than visibilitychange on some firmware versions
 let _lastGear = null;
 function pollTeslaGear() {
   try {
@@ -1556,8 +1545,8 @@ function switchTab(name, btn) {
 // TESLA LIVE DATA
 // ════════════════════════════════════════
 
-// O Tesla Chromium expõe dados do veículo em vários namespaces
-// dependendo da versão do firmware. Tentamos todos.
+// Tesla Chromium exposes vehicle data in several namespaces
+// depending on firmware version. We try all of them.
 function getTeslaVar(...paths) {
   for (const path of paths) {
     try {
@@ -1573,15 +1562,15 @@ function getTeslaVar(...paths) {
   return null;
 }
 
-// Lê todos os dados disponíveis do veículo
+// Read all available vehicle data
 function readTeslaData() {
-  // Velocidade — várias fontes possíveis
+  // Speed — several possible sources
   const speed =
     getTeslaVar('tesla.VehicleSpeed', 'TeslaApp.vehicleSpeed', 'vehicleSpeed',
                 'tesla.vehicle.speed', 'TeslaAPI.speed') ??
     getTeslaVar('window.vehicleSpeed', 'car.speed');
 
-  // Estado de condução
+  // Driving state
   const gear =
     getTeslaVar('tesla.ShiftState', 'TeslaApp.shiftState', 'shiftState',
                 'tesla.vehicle.gear', 'TeslaAPI.shiftState') ??
@@ -1603,7 +1592,7 @@ function readTeslaData() {
   const tempOutside =
     getTeslaVar('tesla.OutsideTemp', 'TeslaApp.outsideTemp', 'outsideTemp');
 
-  // Localização
+  // Location
   const lat =
     getTeslaVar('tesla.Latitude', 'TeslaApp.latitude', 'latitude',
                 'tesla.vehicle.location.latitude');
@@ -1612,12 +1601,12 @@ function readTeslaData() {
     getTeslaVar('tesla.Longitude', 'TeslaApp.longitude', 'longitude',
                 'tesla.vehicle.location.longitude');
 
-  // Potência / energia
+  // Power / energy
   const power =
     getTeslaVar('tesla.Power', 'TeslaApp.power', 'power',
                 'tesla.vehicle.power');
 
-  // Odómetro
+  // Odometer
   const odometer =
     getTeslaVar('tesla.Odometer', 'TeslaApp.odometer', 'odometer');
 
@@ -1645,7 +1634,7 @@ function refreshTeslaData() {
 
   const statusEl = document.getElementById('tesla-data-status');
   if (statusEl) {
-    statusEl.textContent = hasAny ? '● Dados ao vivo' : '● Sem dados (fora do Tesla)';
+    statusEl.textContent = hasAny ? '● Live data' : '● No data (outside Tesla)';
     statusEl.className = 'tesla-data-status' + (hasAny ? ' live' : '');
   }
 
@@ -1660,7 +1649,7 @@ function refreshTeslaData() {
     barEl.className = 'battery-bar-fill' + (pct < 20 ? ' danger' : pct < 40 ? ' warn' : '');
   }
 
-  // Atualizar HUD de modo com base no gear real
+  // Update mode HUD based on the real gear state
   const gear = d.gear;
   const isDriving = gear && gear !== 'P' && gear !== 'park' && gear !== '' && gear !== null;
   if (!simActive) {
@@ -1691,33 +1680,33 @@ function refreshTeslaData() {
   const speedVal = fmt(d.speed, 0);
   const items = [
     {
-      icon: '🚗', label: 'VELOCIDADE', unit: 'km/h',
+      icon: '🚗', label: 'SPEED', unit: 'km/h',
       value: speedVal,
       cls: speedVal !== null && parseFloat(speedVal) > 0 ? 'warn' : ''
     },
     {
-      icon: '⚙️', label: 'MARCHA', unit: '',
+      icon: '⚙️', label: 'GEAR', unit: '',
       value: d.gear || null,
       cls: d.gear && d.gear !== 'P' ? 'warn' : ''
     },
     {
-      icon: '🔋', label: 'BATERIA', unit: '%',
+      icon: '🔋', label: 'BATTERY', unit: '%',
       value: battPct !== null ? String(battPct) : null
     },
     {
-      icon: '📏', label: 'AUTONOMIA', unit: 'km',
+      icon: '📏', label: 'RANGE', unit: 'km',
       value: fmt(d.battRange, 0)
     },
     {
-      icon: '🌡️', label: 'TEMP INT.', unit: '°C',
+      icon: '🌡️', label: 'INT TEMP.', unit: '°C',
       value: fmt(d.tempInside, 1)
     },
     {
-      icon: '🌤️', label: 'TEMP EXT.', unit: '°C',
+      icon: '🌤️', label: 'EXT TEMP.', unit: '°C',
       value: fmt(d.tempOutside, 1)
     },
     {
-      icon: '⚡', label: 'POTÊNCIA', unit: 'kW',
+      icon: '⚡', label: 'POWER', unit: 'kW',
       value: fmt(d.power, 0),
       cls: d.power && parseFloat(d.power) > 0 ? 'warn' : ''
     },
@@ -1730,11 +1719,11 @@ function refreshTeslaData() {
       value: fmt(d.lon, 5)
     },
     {
-      icon: '🔢', label: 'ODÓMETRO', unit: 'km',
+      icon: '🔢', label: 'ODOMETER', unit: 'km',
       value: fmt(d.odometer, 0)
     },
     {
-      icon: '🔌', label: 'CARGA', unit: 'A',
+      icon: '🔌', label: 'CHARGE', unit: 'A',
       value: d.isCharging === 'Charging' ? fmt(d.chargeRate, 1) : (d.isCharging || null)
     },
     {
@@ -1760,7 +1749,7 @@ function refreshTeslaData() {
   });
 }
 
-// Inicia atualização automática
+// Start automatic refresh
 refreshTeslaData();
 setInterval(refreshTeslaData, 2000);
 
@@ -1813,7 +1802,7 @@ const CLIENT_ID = 'tesla-media-center-' + Math.random().toString(36).slice(2);
 function connectPlex() {
   const url = document.getElementById('plex-server-url').value.trim().replace(/\/$/, '');
   const token = document.getElementById('plex-token').value.trim();
-  if (!url || !token) { showPlexError('Preenche o URL do servidor e o token.'); return; }
+  if (!url || !token) { showPlexError('Enter the server URL and token.'); return; }
   plexServerUrl = url;
   plexToken = token;
   fetchPlexLibrary();
@@ -1829,7 +1818,7 @@ function showPlexError(msg) {
 async function fetchPlexLibrary() {
   document.getElementById('plex-connect').style.display = 'none';
   document.getElementById('plex-library').classList.add('show');
-  document.getElementById('lib-content').innerHTML = '<div class="lib-loading"><div class="pin-spinner"></div><span>A carregar biblioteca...</span></div>';
+  document.getElementById('lib-content').innerHTML = '<div class="lib-loading"><div class="pin-spinner"></div><span>Loading library...</span></div>';
 
   try {
     // Get server info
@@ -1856,28 +1845,28 @@ async function fetchPlexLibrary() {
     });
 
     if (plexSections.length > 0) loadSection(plexSections[0].key);
-    else document.getElementById('lib-content').innerHTML = '<div class="lib-loading"><span>Nenhuma biblioteca encontrada.</span></div>';
+    else document.getElementById('lib-content').innerHTML = '<div class="lib-loading"><span>No library found.</span></div>';
 
-    setStatus('s-plex', 'LIGADO', '');
-    document.getElementById('plex-badge').textContent = 'LIGADO';
+    setStatus('s-plex', 'CONNECTED', '');
+    document.getElementById('plex-badge').textContent = 'CONNECTED';
     document.getElementById('plex-badge').className = 'badge plex';
 
   } catch (e) {
     document.getElementById('plex-connect').style.display = 'flex';
     document.getElementById('plex-library').classList.remove('show');
-    showPlexError('Não foi possível ligar. Verifica o servidor, token e CORS.');
+    showPlexError('Could not connect. Check the server, token, and CORS settings.');
     console.error(e);
   }
 }
 
 async function loadSection(key) {
-  document.getElementById('lib-content').innerHTML = '<div class="lib-loading"><div class="pin-spinner"></div><span>A carregar...</span></div>';
+  document.getElementById('lib-content').innerHTML = '<div class="lib-loading"><div class="pin-spinner"></div><span>Loading...</span></div>';
   try {
     const res = await plexFetch(`/library/sections/${key}/all`);
     const items = res?.MediaContainer?.Metadata || res?.MediaContainer?.Video || [];
     renderMediaGrid(items);
   } catch(e) {
-    document.getElementById('lib-content').innerHTML = '<div class="lib-loading"><span style="color:var(--accent2)">Erro ao carregar secção.</span></div>';
+    document.getElementById('lib-content').innerHTML = '<div class="lib-loading"><span style="color:var(--accent2)">Error loading section.</span></div>';
   }
 }
 
@@ -1903,7 +1892,7 @@ function renderMediaGrid(items) {
           ? `<img src="${thumbUrl}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='🎬'">`
           : '🎬'}
       </div>
-      <div class="media-title">${item.title || 'Sem título'}</div>
+      <div class="media-title">${item.title || 'Untitled'}</div>
       ${item.year ? `<div class="media-year">${item.year}</div>` : ''}
     `;
 
@@ -1922,7 +1911,7 @@ async function playPlexItem(item) {
     const media = res?.MediaContainer?.Metadata?.[0]?.Media?.[0];
     const part = media?.Part?.[0];
 
-    if (!part?.key) { alert('Não foi possível obter o stream.'); return; }
+    if (!part?.key) { alert('Could not obtain the stream.'); return; }
 
     const streamUrl = `${plexServerUrl}${part.key}?X-Plex-Token=${plexToken}&download=1`;
 
@@ -1944,7 +1933,7 @@ async function playPlexItem(item) {
     video.play().catch(()=>{});
 
   } catch(e) {
-    alert('Erro ao iniciar o vídeo: ' + e.message);
+    alert('Error starting the video: ' + e.message);
   }
 }
 
@@ -1962,8 +1951,8 @@ function plexLogout() {
   document.getElementById('plex-library').classList.remove('show');
   document.getElementById('plex-player-wrap').classList.remove('show');
   document.getElementById('plex-connect').style.display = 'flex';
-  setStatus('s-plex', 'DESLIGADO', 'off');
-  document.getElementById('plex-badge').textContent = 'DESLIGADO';
+  setStatus('s-plex', 'DESCONNECTED', 'off');
+  document.getElementById('plex-badge').textContent = 'DESCONNECTED';
 }
 
 function refreshLibrary() { if (plexSections.length) loadSection(plexSections[0].key); }
@@ -2031,7 +2020,7 @@ async function startPinAuth() {
     // Stop after 5min
     setTimeout(() => cancelPin(), 300000);
   } catch(e) {
-    showPlexError('Erro ao iniciar autenticação PIN. Tenta o método do token manual.');
+    showPlexError('Error starting PIN authentication. Try the manual token method.');
   }
 }
 
@@ -2059,9 +2048,9 @@ async function discoverServer() {
         return;
       }
     }
-    showPlexError('Servidor encontrado mas sem URI acessível. Introduz o URL manualmente.');
+    showPlexError('Server found but no accessible URI. Enter the URL manually.');
   } catch(e) {
-    showPlexError('Não foi possível descobrir o servidor. Introduz o URL manualmente.');
+    showPlexError('Could not discover the server. Enter the URL manually.');
   }
 }
 
@@ -2078,7 +2067,7 @@ let ytCurrentTitle = 'lofi hip hop radio — beats to relax/study';
 let ytSearchResults = [];
 let ytSelectedIndex = -1;
 
-// Instâncias públicas Invidious com CORS aberto — tentadas por ordem
+// Public Invidious instances with open CORS — tried in order
 const INVIDIOUS_INSTANCES = [
   'https://invidious.privacydev.net',
   'https://yt.cdaut.de',
@@ -2097,11 +2086,11 @@ async function ytSearchInvidious(query) {
       if (!Array.isArray(data) || !data.length) continue;
       return data.slice(0, 12).map(v => ({
         id: v.videoId,
-        title: v.title || 'Sem título',
+        title: v.title || 'Untitled',
         channel: v.author || '',
         thumb: `https://i.ytimg.com/vi/${v.videoId}/mqdefault.jpg`,
       }));
-    } catch(e) { /* tenta próxima instância */ }
+    } catch(e) { /* try next instance */ }
   }
   return null; // todas falharam
 }
@@ -2114,9 +2103,9 @@ async function ytSearch() {
   const resultsEl = document.getElementById('yt-results');
 
   btn.disabled = true;
-  btn.textContent = '⏳ A pesquisar...';
+  btn.textContent = '⏳ Searching...';
   resultsEl.classList.add('show');
-  resultsEl.innerHTML = '<div class="yt-results-loading"><div class="pin-spinner" style="border-top-color:var(--accent)"></div><span>A pesquisar no YouTube...</span></div>';
+  resultsEl.innerHTML = '<div class="yt-results-loading"><div class="pin-spinner" style="border-top-color:var(--accent)"></div><span>Searching YouTube...</span></div>';
 
   try {
     const results = await ytSearchInvidious(query);
@@ -2125,29 +2114,29 @@ async function ytSearch() {
       ytSearchResults = results;
       renderYtResults(ytSearchResults, query);
     } else {
-      throw new Error('sem resultados');
+      throw new Error('no results');
     }
   } catch(e) {
     // Fallback final: campo para colar URL/ID diretamente
     resultsEl.innerHTML = `
       <div class="yt-results-empty">
-        ⚠ Pesquisa indisponível de momento (todas as instâncias Invidious offline).<br><br>
+        ⚠ Search unavailable at the moment (all Invidious instances are offline).<br><br>
         <span style="color:var(--text)">Cola diretamente um URL ou ID do YouTube:</span><br>
         <div style="display:flex;gap:8px;margin-top:10px">
-          <input class="yt-search-input" id="yt-direct-id" placeholder="URL ou ID do vídeo (ex: dQw4w9WgXcQ)" style="font-size:12px">
+          <input class="yt-search-input" id="yt-direct-id" placeholder="Video URL or ID (e.g. dQw4w9WgXcQ)" style="font-size:12px">
           <button class="yt-search-btn" onclick="ytLoadDirect()">▶ Carregar</button>
         </div>
       </div>`;
   } finally {
     btn.disabled = false;
-    btn.textContent = '🔍 Pesquisar';
+    btn.textContent = '🔍 Search';
   }
 }
 
 function renderYtResults(results, query) {
   const el = document.getElementById('yt-results');
   if (!results.length) {
-    el.innerHTML = `<div class="yt-results-empty">Nenhum resultado para "<strong>${query}</strong>". Tenta outra pesquisa.</div>`;
+    el.innerHTML = `<div class="yt-results-empty">No results for "<strong>${query}</strong>". Try another search.</div>`;
     return;
   }
   el.innerHTML = '';
@@ -2196,11 +2185,11 @@ function ytLoadDirect() {
   if (urlMatch) videoId = urlMatch[1];
 
   if (!/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
-    alert('ID ou URL inválido.');
+    alert('Invalid ID or URL.');
     return;
   }
 
-  ytSearchResults = [{ id: videoId, title: 'Vídeo ' + videoId, channel: '', thumb: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg` }];
+  ytSearchResults = [{ id: videoId, title: 'Video ' + videoId, channel: '', thumb: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg` }];
   ytPlayResult(0);
   document.getElementById('yt-results').classList.remove('show');
 }
@@ -2243,11 +2232,11 @@ async function connectJellyfin() {
   const username = document.getElementById('jelly-username').value.trim();
   const password = document.getElementById('jelly-password').value;
 
-  if (!url || !username) { showJellyError('Preenche o URL do servidor e o utilizador.'); return; }
+  if (!url || !username) { showJellyError('Enter the server URL and username.'); return; }
 
   jellyServerUrl = url;
   const btn = document.getElementById('jelly-connect-btn');
-  btn.disabled = true; btn.textContent = '⏳ A ligar...';
+  btn.disabled = true; btn.textContent = '⏳ Connecting...';
 
   try {
     const data = await jellyFetch('/Users/AuthenticateByName', {
@@ -2258,9 +2247,9 @@ async function connectJellyfin() {
     jellyUserId = data.User?.Id;
     await fetchJellyLibrary(data.User?.Name || username);
   } catch(e) {
-    showJellyError('Não foi possível ligar. Verifica o URL, utilizador e palavra-passe.');
+    showJellyError('Could not connect. Check the URL, username, and password.');
   } finally {
-    btn.disabled = false; btn.textContent = '🪼 Ligar ao Jellyfin';
+    btn.disabled = false; btn.textContent = '🪼 Connect to Jellyfin';
   }
 }
 
@@ -2274,7 +2263,7 @@ function showJellyError(msg) {
 async function fetchJellyLibrary(serverName) {
   document.getElementById('jellyfin-setup').style.display = 'none';
   document.getElementById('jellyfin-library').classList.add('show');
-  document.getElementById('jelly-lib-content').innerHTML = '<div class="jelly-lib-loading"><div class="pin-spinner" style="border-top-color:#00a4dc"></div><span>A carregar biblioteca...</span></div>';
+  document.getElementById('jelly-lib-content').innerHTML = '<div class="jelly-lib-loading"><div class="pin-spinner" style="border-top-color:#00a4dc"></div><span>Loading library...</span></div>';
 
   try {
     // Get views (libraries)
@@ -2298,30 +2287,30 @@ async function fetchJellyLibrary(serverName) {
     });
 
     if (jellySections.length) loadJellySection(jellySections[0].Id);
-    else document.getElementById('jelly-lib-content').innerHTML = '<div class="jelly-lib-loading"><span>Nenhuma biblioteca encontrada.</span></div>';
+    else document.getElementById('jelly-lib-content').innerHTML = '<div class="jelly-lib-loading"><span>No library found.</span></div>';
 
-    setStatus('s-jelly', 'LIGADO', '');
-    document.getElementById('jelly-badge').textContent = 'LIGADO';
+    setStatus('s-jelly', 'CONNECTED', '');
+    document.getElementById('jelly-badge').textContent = 'CONNECTED';
   } catch(e) {
     document.getElementById('jellyfin-setup').style.display = 'flex';
     document.getElementById('jellyfin-library').classList.remove('show');
-    showJellyError('Erro ao carregar biblioteca: ' + e.message);
+    showJellyError('Error loading library: ' + e.message);
   }
 }
 
 async function loadJellySection(parentId) {
-  document.getElementById('jelly-lib-content').innerHTML = '<div class="jelly-lib-loading"><div class="pin-spinner" style="border-top-color:#00a4dc"></div><span>A carregar...</span></div>';
+  document.getElementById('jelly-lib-content').innerHTML = '<div class="jelly-lib-loading"><div class="pin-spinner" style="border-top-color:#00a4dc"></div><span>Loading...</span></div>';
   try {
     const data = await jellyFetch(`/Users/${jellyUserId}/Items?ParentId=${parentId}&Recursive=true&IncludeItemTypes=Movie,Episode,Video&Fields=Overview,MediaSources&SortBy=SortName&SortOrder=Ascending&Limit=100`);
     renderJellyGrid(data.Items || []);
   } catch(e) {
-    document.getElementById('jelly-lib-content').innerHTML = '<div class="jelly-lib-loading"><span style="color:var(--accent2)">Erro ao carregar secção.</span></div>';
+    document.getElementById('jelly-lib-content').innerHTML = '<div class="jelly-lib-loading"><span style="color:var(--accent2)">Error loading section.</span></div>';
   }
 }
 
 function renderJellyGrid(items) {
   if (!items.length) {
-    document.getElementById('jelly-lib-content').innerHTML = '<div class="jelly-lib-loading"><span>Biblioteca vazia.</span></div>';
+    document.getElementById('jelly-lib-content').innerHTML = '<div class="jelly-lib-loading"><span>Empty library.</span></div>';
     return;
   }
   const grid = document.createElement('div');
@@ -2335,7 +2324,7 @@ function renderJellyGrid(items) {
       <div class="jelly-media-thumb">
         <img src="${thumbUrl}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='🎬'">
       </div>
-      <div class="jelly-media-title">${item.Name || 'Sem título'}</div>
+      <div class="jelly-media-title">${item.Name || 'Untitled'}</div>
       ${item.ProductionYear ? `<div class="jelly-media-year">${item.ProductionYear}</div>` : ''}
     `;
     el.onclick = () => playJellyItem(item);
@@ -2351,7 +2340,7 @@ async function playJellyItem(item) {
     // Get playback info for direct stream URL
     const info = await jellyFetch(`/Items/${item.Id}/PlaybackInfo?UserId=${jellyUserId}`, { method: 'POST', body: JSON.stringify({ DeviceProfile: {} }) });
     const mediaSource = info?.MediaSources?.[0];
-    if (!mediaSource) throw new Error('Sem fonte de media.');
+    if (!mediaSource) throw new Error('No media source found.');
 
     // Build direct stream URL
     const streamUrl = `${jellyServerUrl}/Videos/${item.Id}/stream?Static=true&MediaSourceId=${mediaSource.Id}&api_key=${jellyToken}`;
@@ -2370,7 +2359,7 @@ async function playJellyItem(item) {
     ensureAudio(video);
     video.play().catch(() => {});
   } catch(e) {
-    alert('Erro ao iniciar o vídeo: ' + e.message);
+    alert('Error starting the video: ' + e.message);
   }
 }
 
@@ -2388,8 +2377,8 @@ function jellyLogout() {
   document.getElementById('jellyfin-library').classList.remove('show');
   document.getElementById('jellyfin-player-wrap').classList.remove('show');
   document.getElementById('jellyfin-setup').style.display = 'flex';
-  setStatus('s-jelly', 'DESLIGADO', 'off');
-  document.getElementById('jelly-badge').textContent = 'DESLIGADO';
+  setStatus('s-jelly', 'DESCONNECTED', 'off');
+  document.getElementById('jelly-badge').textContent = 'DESCONNECTED';
 }
 
 function jellyRefresh() {
@@ -2435,11 +2424,11 @@ function parseM3U(text) {
 
 async function loadM3U() {
   const url = document.getElementById('iptv-m3u-url').value.trim();
-  if (!url) { showIptvError('Introduz o URL da lista M3U.'); return; }
+  if (!url) { showIptvError('Enter the M3U playlist URL.'); return; }
 
   const btn = document.getElementById('iptv-load-btn');
   btn.disabled = true;
-  btn.textContent = '⏳ A carregar...';
+  btn.textContent = '⏳ Loading...';
   document.getElementById('iptv-error').classList.remove('show');
 
   try {
@@ -2451,25 +2440,25 @@ async function loadM3U() {
       text = await res.text();
     } catch {
       const proxyRes = await fetch('https://corsproxy.io/?' + encodeURIComponent(url));
-      if (!proxyRes.ok) throw new Error('Não foi possível carregar a lista M3U.');
+      if (!proxyRes.ok) throw new Error('Could not load the M3U playlist.');
       text = await proxyRes.text();
     }
 
     if (!text.includes('#EXTM3U') && !text.includes('#EXTINF')) {
-      throw new Error('Ficheiro inválido — não parece ser uma lista M3U.');
+      throw new Error('Invalid file — it does not look like an M3U playlist.');
     }
 
     iptvChannels = parseM3U(text);
-    if (!iptvChannels.length) throw new Error('Nenhum canal encontrado na lista.');
+    if (!iptvChannels.length) throw new Error('No channels found in the list.');
 
     iptvFiltered = [...iptvChannels];
     renderIptvLibrary();
 
   } catch(e) {
-    showIptvError(e.message || 'Erro ao carregar a lista.');
+    showIptvError(e.message || 'Error loading the playlist.');
   } finally {
     btn.disabled = false;
-    btn.textContent = '📡 Carregar Lista';
+    btn.textContent = '📡 Load Playlist';
   }
 }
 
@@ -2486,12 +2475,12 @@ function renderIptvLibrary() {
 
   const total = iptvChannels.length;
   const m3uUrl = document.getElementById('iptv-m3u-url').value;
-  const listName = m3uUrl.split('/').pop().split('?')[0] || 'Lista IPTV';
+  const listName = m3uUrl.split('/').pop().split('?')[0] || 'IPTV list';
   document.getElementById('iptv-lib-name').textContent = '📡 ' + listName;
   document.getElementById('iptv-ch-count').textContent = total + ' canais';
 
-  setStatus('s-iptv', 'LIGADO', '');
-  document.getElementById('iptv-badge').textContent = 'LIGADO';
+  setStatus('s-iptv', 'CONNECTED', '');
+  document.getElementById('iptv-badge').textContent = 'CONNECTED';
 
   // Build group tabs
   const groups = ['Todos', ...new Set(iptvChannels.map(c => c.group).filter(Boolean))];
@@ -2527,7 +2516,7 @@ function filterIptvChannels(query) {
 function renderIptvChannels() {
   const wrap = document.getElementById('iptv-channel-list-wrap');
   if (!iptvFiltered.length) {
-    wrap.innerHTML = '<div class="iptv-no-channels">Nenhum canal encontrado.</div>';
+    wrap.innerHTML = '<div class="iptv-no-channels">No channels found.</div>';
     return;
   }
   const list = document.createElement('div');
@@ -2543,7 +2532,7 @@ function renderIptvChannels() {
         : ''}
       <div class="iptv-ch-logo-placeholder" style="${ch.logo ? 'display:none' : ''}">📺</div>
       <div class="iptv-ch-info">
-        <div class="iptv-ch-name">${ch.name || 'Canal ' + (i+1)}</div>
+        <div class="iptv-ch-name">${ch.name || 'Channel ' + (i+1)}</div>
         <div class="iptv-ch-group">${ch.group || ''}</div>
       </div>
       <span class="iptv-ch-play">▶</span>
@@ -2568,10 +2557,10 @@ function playIptvChannel(index) {
   const playerWrap = document.getElementById('iptv-player-wrap');
   playerWrap.classList.add('show');
 
-  document.getElementById('iptv-np-title').textContent = ch.name || 'Canal';
+  document.getElementById('iptv-np-title').textContent = ch.name || 'Channel';
   document.getElementById('iptv-np-group').textContent = ch.group || '';
 
-  video._bypassInstalled = false; // reset para reinstalar bypass no novo canal
+  video._bypassInstalled = false; // reset to reinstall the bypass on the new channel
   installBypass(video, iptvPaused);
   video.addEventListener('click', () => { iptvPaused.value = !video.paused; });
   ensureAudio(video);
@@ -2606,8 +2595,8 @@ function iptvLogout() {
   document.getElementById('iptv-library').classList.remove('show');
   document.getElementById('iptv-player-wrap').classList.remove('show');
   document.getElementById('iptv-setup').style.display = 'flex';
-  setStatus('s-iptv', 'INATIVO', 'off');
-  document.getElementById('iptv-badge').textContent = 'DESLIGADO';
+  setStatus('s-iptv', 'INACTIVE', 'off');
+  document.getElementById('iptv-badge').textContent = 'DISCONNECTED';
 }
 
 // User interaction → AudioContext

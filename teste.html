@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Tesla TV Demo</title>
@@ -64,7 +64,7 @@ button {
   </div>
 </div>
 
-<!-- vídeo escondido (não usado diretamente na UI) -->
+<!-- hidden video (not used directly in the UI) -->
 <video id="video" muted playsinline style="display:none;"></video>
 
 <script>
@@ -72,7 +72,7 @@ const video = document.getElementById("video");
 const canvas = document.getElementById("screen");
 const ctx = canvas.getContext("2d");
 
-// vídeo demo público leve
+// light public demo video
 const VIDEO_URL = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 // setup
@@ -81,7 +81,7 @@ video.crossOrigin = "anonymous";
 video.muted = true;
 video.playsInline = true;
 
-// ajustar canvas
+// adjust canvas
 function resize() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight * 0.75;
@@ -89,7 +89,7 @@ function resize() {
 window.addEventListener("resize", resize);
 resize();
 
-// desenhar frames no canvas (modo “TeslaTV-like”)
+// draw frames on the canvas ("TeslaTV-like" mode)
 function render() {
   if (!video.paused && !video.ended) {
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -103,7 +103,7 @@ function loadVideo() {
 }
 
 function playVideo() {
-  video.play().catch(err => console.log("Play bloqueado:", err));
+  video.play().catch(err => console.log("Playback blocked:", err));
 }
 
 function pauseVideo() {

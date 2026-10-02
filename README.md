@@ -1,18 +1,6 @@
 # 🚗 Tesla Media Center v2.0
 
-Single-file website (`index.html`) that lets you play **YouTube, Netflix, Local Upload, Plex, Jellyfin, and IPTV** in Tesla's Chromium browser — with active driving bypass, real-time vehicle data, and zero external dependencies.
-
-**[🔗 View Live Demo](https://davidfferreira.github.io/TeslaMediaCenter)**
-
----
-
-## ☕ Support the Project
-
-You can save on fuel, but the developer's coffee still costs money!
-
-**[→ Buy me a coffee via PayPal](https://paypal.me/Davidfferreira1986?locale.x=pt_PT&country.x=PT)**
-
-> _"The Tesla charges itself. The developer does not."_ 🔋
+A single-file website (`index.html`) that lets you play **YouTube, Netflix, local uploads, Plex, Jellyfin, and IPTV** in Tesla's Chromium browser — with an active driving bypass, real-time vehicle data, and zero external dependencies.
 
 ---
 
@@ -21,7 +9,7 @@ You can save on fuel, but the developer's coffee still costs money!
 ### 1. Open the site
 In the Tesla browser, go to:
 ```
-https://davidfferreira.github.io/TeslaMediaCenter
+https://emanuel0723.github.io/TeslaMediaCenter-local/
 ```
 Save it as a bookmark for quick access.
 
@@ -29,27 +17,27 @@ Save it as a bookmark for quick access.
 Select the tab you want — YouTube, Netflix, Upload, Plex, Jellyfin, or IPTV — and start playback **before driving off**.
 
 ### 3. Press play and start driving
-With the video playing and the car parked, start driving normally. The browser automatically switches to driving mode — the bypass intercepts this event and the video **continues without interruption**.
+With the video already playing and the car parked, start driving normally. The browser automatically enters driving mode — the bypass intercepts this event and the video **continues without interruption**.
 
-> **The "Simulate" button** only exists to test the bypass on a PC or phone. On a real Tesla, the bypass activates automatically as soon as the vehicle starts moving — you don't need to do anything.
+> **The "Simulate" button** only exists to test the bypass on a PC or phone. On a real Tesla, the bypass activates automatically as soon as the vehicle starts moving — you do not need to do anything.
 
 ### 4. During the trip
 The video and audio remain active. Wake Lock prevents the screen from going to sleep. If the video pauses for any reason, Pause Intercept automatically resumes it in under 120 ms.
 
 ---
 
-## Features by Tab
+## Features by tab
 
 | Tab | Description |
 |---|---|
-| **▶ YouTube** | Integrated search via the Invidious API + embed with active bypass. Fallback to pasting the URL/ID directly. |
-| **🎞 Netflix** | Instructions to open Netflix in a new tab with the bypass always active on this page. |
+| **▶ YouTube** | Integrated search via the Invidious API + embedded player with active bypass. Includes fallback to pasting the URL or video ID directly. |
+| **🎞 Netflix** | Opens Netflix in a new tab while keeping the bypass active on this page. |
 | **⬆ Upload** | Upload a local MP4/WebM file — ideal for testing the bypass on a PC or phone. |
-| **🎬 Plex** | Connect to your Plex Media Server via manual token or OAuth PIN authentication. Full library with cover grid. |
-| **🪼 Jellyfin** | Connect to your Jellyfin server with username/password. Direct stream without transcoding. |
-| **📡 IPTV** | Paste an M3U playlist URL and play live channels. Filters by group and name, channel navigation without leaving the player. |
-| **🚗 Tesla** | Real-time vehicle data: speed, gear, battery, range, temperatures, location, power, odometer. Updates every 2 seconds. |
-| **</> Code** | Source code for the bypass (tesla-bypass.js) to copy and use on other pages. |
+| **🎬 Plex** | Connect to your Plex Media Server via manual token or OAuth PIN authentication. Full library with a cover grid. |
+| **🪼 Jellyfin** | Connect to your Jellyfin server with a username and password. Direct stream without transcoding. |
+| **📡 IPTV** | Paste an M3U playlist URL and play live channels. Filter by group or name and navigate channels without leaving the player. |
+| **🚗 Tesla** | Real-time vehicle data: speed, gear, battery, range, temperatures, location, power, and odometer. Updates every 2 seconds. |
+| **</> Code** | Displays the source code for the bypass (`tesla-bypass.js`) so it can be copied and reused on other pages. |
 
 ---
 
@@ -69,7 +57,7 @@ Below the HUD, the **Status Bar** shows in real time:
 
 ---
 
-## How the Bypass Works (v2.0)
+## How the bypass works (v2.0)
 
 Tesla's browser (Chromium) fires the `visibilitychange → hidden` event when the car starts moving. This version uses **four independent layers** to guarantee recovery in every scenario:
 
@@ -144,9 +132,9 @@ videoEl.addEventListener('pause', () => {
 
 ---
 
-## Tesla Tab — Vehicle Data
+## Tesla tab — vehicle data
 
-The **🚗 Tesla** tab reads the JavaScript variables that Tesla Chromium exposes on `window` directly. Different firmware versions use different namespaces — the code tries all of them:
+The **🚗 Tesla** tab reads the JavaScript variables Tesla Chromium exposes on `window` directly. Different firmware versions use different namespaces — the code tries all of them:
 
 ```
 window.tesla.VehicleSpeed / ShiftState / BatteryLevel / EstBatteryRange
@@ -171,7 +159,7 @@ window.vehicleSpeed / shiftState / ... (plain namespace)
 
 ---
 
-## YouTube — Integrated Search
+## YouTube — integrated search
 
 The search uses the public **Invidious API** (an alternative YouTube frontend with open CORS) with automatic failover across 5 independent instances:
 
@@ -280,5 +268,5 @@ Direct stream without transcoding — as long as the format is compatible with T
 
 ## ⚠️ Warning
 
-This project is for educational and entertainment use only as a passenger. Do not use the Tesla display to watch video while you are the one driving — it is illegal and dangerous.
+This project is intended for educational and entertainment use only while you are a passenger. Do not use the Tesla display to watch video while you are the one driving — it is illegal and dangerous.
 
