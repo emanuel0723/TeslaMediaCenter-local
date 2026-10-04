@@ -39,11 +39,6 @@
 
     html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Exo 2', sans-serif; overflow-x: hidden; }
 
-    /* scanlines */
-    body::before {
-      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9000;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
-    }
 
     /* grid */
     body::after {
