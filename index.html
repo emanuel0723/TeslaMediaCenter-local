@@ -18,6 +18,7 @@
   <link rel="canonical" href="https://emanuel0723.github.io/TeslaMediaCenter-local/r">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="hls.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1011,7 +1012,15 @@
             <div class="np-title" id="jelly-np-title">—</div>
             <div class="np-meta" id="jelly-np-meta">—</div>
           </div>
-          <div class="np-actions">
+          <div class="np-actions" style="display:flex;gap:8px;align-items:center;">
+            <select id="jelly-audio-select" class="btn-sm" style="display:none;background:var(--surface);color:var(--text);border:1px solid var(--border);" onchange="onJellyAudioChange(this.value)"></select>
+            <select id="jelly-quality-select" class="btn-sm" style="background:var(--surface);color:var(--text);border:1px solid var(--border);" onchange="onJellyQualityChange(this.value)">
+              <option value="auto">🎬 Original (Direct)</option>
+              <option value="1080p">1080p (10 Mbps)</option>
+              <option value="720p">720p (4 Mbps)</option>
+              <option value="480p">480p (1.5 Mbps)</option>
+              <option value="360p">360p (800 Kbps)</option>
+            </select>
             <button class="btn-sm" onclick="closeJellyPlayer()">↩ Library</button>
           </div>
         </div>
@@ -1364,13 +1373,19 @@ function ensureAudio(videoEl) {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       setStatus('s-audio', 'ACTIVE', '');
+
+      // Keep AudioContext clock running continuously for Tesla Drive Bypass
+      // without hijacking the video element (which silences cross-origin media due to CORS)
+      try {
+        const buffer = audioCtx.createBuffer(1, 1, 22050);
+        const source = audioCtx.createBufferSource();
+        source.buffer = buffer;
+        source.loop = true;
+        source.connect(audioCtx.destination);
+        source.start(0);
+      } catch(_) {}
     }
     if (audioCtx.state === 'suspended') audioCtx.resume();
-    if (videoEl && !audioNodes.has(videoEl)) {
-      const src = audioCtx.createMediaElementSource(videoEl);
-      src.connect(audioCtx.destination);
-      audioNodes.set(videoEl, src);
-    }
   } catch(e) {}
 }
 
@@ -2335,18 +2350,256 @@ function renderJellyGrid(items) {
   document.getElementById('jelly-lib-content').appendChild(grid);
 }
 
-async function playJellyItem(item) {
+let jellyHls = null;
+let jellyCurrentItem = null;
+let jellyCurrentMediaSource = null;
+let jellyCurrentQuality = 'auto';
+let jellyCurrentAudioIndex = undefined;
+
+const JELLY_QUALITIES = {
+  auto:    { label: '🎬 Original', bitrate: 140000000, width: null, copyVideo: true },
+  '1080p': { label: '1080p (10M)', bitrate: 10000000,  width: 1920, copyVideo: false },
+  '720p':  { label: '720p (4M)',   bitrate: 4000000,   width: 1280, copyVideo: false },
+  '480p':  { label: '480p (1.5M)', bitrate: 1500000,   width: 854,  copyVideo: false },
+  '360p':  { label: '360p (800k)', bitrate: 800000,    width: 640,  copyVideo: false },
+};
+
+function buildJellyStreamInfo(item, mediaSource, audioIndex, quality) {
+  const qKey = quality || jellyCurrentQuality || 'auto';
+  const qConfig = JELLY_QUALITIES[qKey] || JELLY_QUALITIES['auto'];
+
+  const audioStreams = (mediaSource.MediaStreams || []).filter(s => s.Type === 'Audio');
+  let chosenAudio = null;
+  if (audioIndex !== undefined && audioIndex !== null && audioIndex !== '') {
+    chosenAudio = audioStreams.find(s => s.Index === Number(audioIndex));
+  }
+  if (!chosenAudio) {
+    chosenAudio = audioStreams.find(s => s.IsDefault) || audioStreams[0];
+  }
+
+  const audioCodec = (chosenAudio?.Codec || '').toLowerCase();
+  // Browser natively decodes aac, mp3, opus, flac, vorbis
+  const isDirectAudio = ['aac', 'mp3', 'opus', 'flac', 'vorbis'].includes(audioCodec);
+
+  // If quality is Original AND audio is already AAC/MP3: direct stream
+  if (qConfig.copyVideo && isDirectAudio && mediaSource.SupportsDirectPlay && (!chosenAudio || chosenAudio.IsDefault)) {
+    return {
+      url: `${jellyServerUrl}/Videos/${item.Id}/stream?Static=true&MediaSourceId=${mediaSource.Id}&api_key=${jellyToken}`,
+      isHls: false
+    };
+  }
+
+  // Audio requires transcoding (AC-3, E-AC-3, DTS, TrueHD, 5.1/7.1 multichannel downmix, etc.):
+  // We use Jellyfin HLS VOD streaming
+  const playSessionId = 'jelly_' + Date.now();
+  const params = new URLSearchParams({
+    MediaSourceId: mediaSource.Id,
+    DeviceId: JELLY_DEVICE_ID,
+    AudioCodec: 'aac',
+    AudioChannels: '2',
+    TranscodingContainer: 'ts',
+    TranscodingProtocol: 'hls',
+    SegmentContainer: 'ts',
+    MinSegments: '1',
+    BreakOnNonKeyFrames: 'True',
+    PlaySessionId: playSessionId,
+    api_key: jellyToken
+  });
+
+  if (qConfig.copyVideo) {
+    params.set('VideoCodec', 'copy');
+  } else {
+    params.set('VideoCodec', 'h264');
+    params.set('VideoBitrate', qConfig.bitrate);
+    params.set('MaxStreamingBitrate', qConfig.bitrate);
+    if (qConfig.width) {
+      params.set('MaxWidth', qConfig.width);
+    }
+  }
+
+  if (chosenAudio && chosenAudio.Index !== undefined) {
+    params.set('AudioStreamIndex', chosenAudio.Index);
+  }
+
+  let hlsUrl = '';
+  if (mediaSource.TranscodingUrl) {
+    hlsUrl = mediaSource.TranscodingUrl.startsWith('http')
+      ? mediaSource.TranscodingUrl
+      : `${jellyServerUrl}${mediaSource.TranscodingUrl}`;
+    const urlObj = new URL(hlsUrl);
+    if (qConfig.copyVideo) {
+      urlObj.searchParams.set('VideoCodec', 'copy');
+    } else {
+      urlObj.searchParams.set('VideoCodec', 'h264');
+      urlObj.searchParams.set('VideoBitrate', qConfig.bitrate.toString());
+      urlObj.searchParams.set('MaxStreamingBitrate', qConfig.bitrate.toString());
+      if (qConfig.width) {
+        urlObj.searchParams.set('MaxWidth', qConfig.width.toString());
+      }
+    }
+    urlObj.searchParams.set('AudioCodec', 'aac');
+    urlObj.searchParams.set('AudioChannels', '2');
+    urlObj.searchParams.set('MinSegments', '1');
+    urlObj.searchParams.set('api_key', jellyToken);
+    if (chosenAudio && chosenAudio.Index !== undefined) {
+      urlObj.searchParams.set('AudioStreamIndex', chosenAudio.Index);
+    }
+    hlsUrl = urlObj.toString();
+  } else {
+    hlsUrl = `${jellyServerUrl}/Videos/${item.Id}/main.m3u8?${params.toString()}`;
+  }
+
+  return {
+    url: hlsUrl,
+    isHls: true
+  };
+}
+
+async function playJellyItem(item, preferredAudioIndex, resumeTime) {
   try {
-    // Get playback info for direct stream URL
-    const info = await jellyFetch(`/Items/${item.Id}/PlaybackInfo?UserId=${jellyUserId}`, { method: 'POST', body: JSON.stringify({ DeviceProfile: {} }) });
+    jellyCurrentItem = item;
+    if (preferredAudioIndex !== undefined) {
+      jellyCurrentAudioIndex = preferredAudioIndex;
+    }
+
+    const qKey = jellyCurrentQuality || 'auto';
+    const qConfig = JELLY_QUALITIES[qKey] || JELLY_QUALITIES['auto'];
+
+    // Provide browser device profile so Jellyfin knows our browser supports AAC/MP3 audio and HLS.
+    // If user chose downscaled quality (720p, 480p, etc.), DirectPlayProfiles is empty so Jellyfin is forced to transcode.
+    const deviceProfile = {
+      MaxStreamingBitrate: qConfig.bitrate,
+      DirectPlayProfiles: qConfig.copyVideo ? [
+        {
+          Container: 'mp4,m4v,mov,mkv,webm',
+          Type: 'Video',
+          VideoCodec: 'h264,hevc,vp8,vp9,av1',
+          AudioCodec: 'aac,mp3,opus,flac'
+        }
+      ] : [],
+      TranscodingProfiles: [
+        {
+          Container: 'ts',
+          Type: 'Video',
+          VideoCodec: 'h264',
+          AudioCodec: 'aac',
+          AudioChannels: '2',
+          Context: 'Streaming',
+          Protocol: 'hls',
+          MinSegments: 1,
+          BreakOnNonKeyFrames: true,
+          MaxStreamingBitrate: qConfig.bitrate
+        }
+      ]
+    };
+
+    const info = await jellyFetch(`/Items/${item.Id}/PlaybackInfo?UserId=${jellyUserId}`, {
+      method: 'POST',
+      body: JSON.stringify({ DeviceProfile: deviceProfile })
+    });
     const mediaSource = info?.MediaSources?.[0];
     if (!mediaSource) throw new Error('No media source found.');
+    jellyCurrentMediaSource = mediaSource;
 
-    // Build direct stream URL
-    const streamUrl = `${jellyServerUrl}/Videos/${item.Id}/stream?Static=true&MediaSourceId=${mediaSource.Id}&api_key=${jellyToken}`;
+    // Populate audio track selector
+    const audioSelect = document.getElementById('jelly-audio-select');
+    const audioStreams = (mediaSource.MediaStreams || []).filter(s => s.Type === 'Audio');
+    if (audioSelect && audioStreams.length > 1) {
+      audioSelect.innerHTML = '';
+      audioStreams.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.Index;
+        const title = s.DisplayTitle || s.Title || s.Language || `Track #${s.Index}`;
+        const codec = (s.Codec || '').toUpperCase();
+        opt.textContent = `🔊 ${title} [${codec}]`;
+        if (jellyCurrentAudioIndex !== undefined ? s.Index === Number(jellyCurrentAudioIndex) : s.IsDefault) {
+          opt.selected = true;
+        }
+        audioSelect.appendChild(opt);
+      });
+      audioSelect.style.display = 'block';
+    } else if (audioSelect) {
+      audioSelect.style.display = 'none';
+    }
+
+    // Sync quality dropdown
+    const qualitySelect = document.getElementById('jelly-quality-select');
+    if (qualitySelect) {
+      qualitySelect.value = qKey;
+    }
+
+    if (jellyHls) {
+      jellyHls.destroy();
+      jellyHls = null;
+    }
 
     const video = document.getElementById('jellyfin-video');
-    video.src = streamUrl;
+    const prevTime = resumeTime !== undefined ? resumeTime : (preferredAudioIndex !== undefined ? video.currentTime : 0);
+
+    const streamInfo = buildJellyStreamInfo(item, mediaSource, jellyCurrentAudioIndex, qKey);
+    console.log('Jellyfin playback started [Quality: ' + qKey + ']:', streamInfo.url);
+
+    if (streamInfo.isHls && window.Hls && Hls.isSupported()) {
+      jellyHls = new Hls({
+        enableWorker: true,
+        lowLatencyMode: false,
+        backBufferLength: 60,
+        xhrSetup: function(xhr, url) {
+          xhr.setRequestHeader('X-Emby-Authorization', jellyAuthHeader());
+        }
+      });
+      jellyHls.loadSource(streamInfo.url);
+      jellyHls.attachMedia(video);
+      jellyHls.on(Hls.Events.MANIFEST_PARSED, () => {
+        if (prevTime > 0) video.currentTime = prevTime;
+        video.play().catch(() => {});
+      });
+      jellyHls.on(Hls.Events.ERROR, (event, data) => {
+        console.warn('HLS Event:', data);
+        if (data.fatal) {
+          const status = data.response?.code ? `HTTP ${data.response.code}` : (data.details || 'Error');
+          console.error('Fatal HLS error:', status, data);
+          if (data.response && data.response.code >= 400) {
+            document.getElementById('jelly-np-meta').textContent =
+              `⚠️ Server video transcode failed (${status}). Falling back to Original...`;
+            jellyHls.destroy();
+            jellyHls = null;
+            setTimeout(() => {
+              jellyCurrentQuality = 'auto';
+              const qualitySelect = document.getElementById('jelly-quality-select');
+              if (qualitySelect) qualitySelect.value = 'auto';
+              const curTime = video ? video.currentTime : 0;
+              playJellyItem(jellyCurrentItem, jellyCurrentAudioIndex, curTime);
+            }, 2500);
+            return;
+          }
+          switch (data.type) {
+            case Hls.ErrorTypes.NETWORK_ERROR:
+              jellyHls.startLoad();
+              break;
+            case Hls.ErrorTypes.MEDIA_ERROR:
+              jellyHls.recoverMediaError();
+              break;
+            default:
+              jellyHls.destroy();
+              jellyHls = null;
+              break;
+          }
+        }
+      });
+    } else if (streamInfo.isHls && video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = streamInfo.url;
+      if (prevTime > 0) {
+        video.addEventListener('loadedmetadata', () => { video.currentTime = prevTime; }, { once: true });
+      }
+      video.play().catch(() => {});
+    } else {
+      video.src = streamInfo.url;
+      if (prevTime > 0) {
+        video.addEventListener('loadedmetadata', () => { video.currentTime = prevTime; }, { once: true });
+      }
+      video.play().catch(() => {});
+    }
 
     document.getElementById('jellyfin-library').classList.remove('show');
     document.getElementById('jellyfin-player-wrap').classList.add('show');
@@ -2357,13 +2610,33 @@ async function playJellyItem(item) {
     installBypass(video, jellyPaused);
     video.addEventListener('click', () => { jellyPaused.value = !video.paused; });
     ensureAudio(video);
-    video.play().catch(() => {});
   } catch(e) {
     alert('Error starting the video: ' + e.message);
   }
 }
 
+function onJellyAudioChange(index) {
+  if (jellyCurrentItem) {
+    const video = document.getElementById('jellyfin-video');
+    const currentTime = video ? video.currentTime : 0;
+    playJellyItem(jellyCurrentItem, index, currentTime);
+  }
+}
+
+function onJellyQualityChange(val) {
+  jellyCurrentQuality = val;
+  if (jellyCurrentItem) {
+    const video = document.getElementById('jellyfin-video');
+    const currentTime = video ? video.currentTime : 0;
+    playJellyItem(jellyCurrentItem, jellyCurrentAudioIndex, currentTime);
+  }
+}
+
 function closeJellyPlayer() {
+  if (jellyHls) {
+    jellyHls.destroy();
+    jellyHls = null;
+  }
   const video = document.getElementById('jellyfin-video');
   video.pause(); video.src = '';
   document.getElementById('jellyfin-player-wrap').classList.remove('show');
@@ -2371,6 +2644,10 @@ function closeJellyPlayer() {
 }
 
 function jellyLogout() {
+  if (jellyHls) {
+    jellyHls.destroy();
+    jellyHls = null;
+  }
   jellyToken = ''; jellyServerUrl = ''; jellyUserId = ''; jellySections = [];
   const video = document.getElementById('jellyfin-video');
   video.pause(); video.src = '';
